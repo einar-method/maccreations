@@ -1,5 +1,3 @@
-
-
 import { init, tx, id } from '@instantdb/core';
 
 // ID for app: plink
