@@ -146,7 +146,7 @@ function renderHeader() {
     <header id="header">
         <button class="h-btns" id="home" onclick="window.location.href='#';">home</button>
         <button class="h-btns" id="ezd6" onclick="window.location.href='EZD6/ez-index.html';">portfolio</button>
-        <button class="h-btns" id="itch" onclick="window.location.href='itch.html';">store</button>
+        <button class="h-btns" id="itch" onclick="window.location.href='itch.html';">merch</button>
         <button class="h-btns" id="substack" onclick="window.location.href='substack.html';">blog</button>
     </header>
   `
