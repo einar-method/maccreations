@@ -72,7 +72,7 @@ list should be an Array.`),s.length===0)return new m(0);if(s.length===1)return s
     <header id="header">
         <button class="h-btns" id="home" onclick="window.location.href='#';">home</button>
         <button class="h-btns" id="ezd6" onclick="window.location.href='EZD6/ez-index.html';">portfolio</button>
-        <button class="h-btns" id="itch" onclick="window.location.href='itch.html';">store</button>
+        <button class="h-btns" id="itch" onclick="window.location.href='itch.html';">merch</button>
         <button class="h-btns" id="substack" onclick="window.location.href='substack.html';">blog</button>
     </header>
   `}function Di(n){const t=n[1],e=document.createElement("div");e.innerHTML=t;const r=e.textContent||e.innerText||"",i=r.split(" ");return i.length>20?i.slice(0,20).join(" ")+"...":r}function Ni(n,t){console.log("Article clicked:",t);const e=n.find(r=>"blogID"+r.id===t);e?(console.log("Selected post:",e),$i(e.content)):console.log("Post not found!")}function $i(n){if(!document.getElementById("myNav")){const t=`
