@@ -31,6 +31,7 @@
 body {
   /* margin: 0; */
   display: flex;
+  flex-direction: column;
   /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
@@ -54,15 +55,16 @@ a:hover {
 } */
 
 /* SITE NAVIGATION */
-.site-nav {
+.site__nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: var(--secondary-color);
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-.h-btns {
+/* .nav__header_btns {
   color: var(--white-color);
   background-color: var(--primary-color);
   border: 0.1px solid var(--white-color);
@@ -77,13 +79,22 @@ a:hover {
   -moz-transition: ease-out 0.4s;
   transition: ease-out 0.4s;
   flex-grow: 1;
-}
+} */
 
-.h-btns:hover {
+/* .nav__header_btns:hover {
   box-shadow: inset 0 0 0 25px var(--white-color);
-  /* font-size: 15.2px; */
   color: var(--secondary-color);
 }
+#homeBtn[setHover]:hover {
+  box-shadow: inset 0 0 0 25px var(--white-color);
+  color: var(--secondary-color);
+} */
+
+/* #homeBtn {
+  box-shadow: inset 0 0 0 25px var(--secondary-color);
+  color: var(--tirtary-color);
+  cursor: default;
+} */
 
 #header {
   display: flex;
@@ -468,3 +479,170 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+
+/* HOME PAGE SECTION (FROM OLD PAGE) */
+.green__text{
+  color: var(--tirtary-color);
+}
+
+#rock,
+#paper,
+#scissors {
+  /* margin: .1rem; */
+  margin-bottom: 0.3rem;
+}
+
+.outer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px, 0px;
+  margin: 10px auto 0 auto;
+}
+
+.icons {
+  padding: 0.7rem;
+}
+
+.janken-game {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mini-game {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* min-width: 50%; */
+  /* margin-left: 1rem; */
+}
+
+.game-btns {
+  min-width: 50px;
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-basis: 0; */
+  flex-grow: 1;
+  max-width: max-content;
+  gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* padding: 5px; */
+}
+
+.welcome__text {
+  font-size: 14px;
+  color: whitesmoke;
+  text-align: center;
+}
+
+.fa,
+.fa-brands,
+.fa-solid {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  width: 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  color: #da9758;
+  cursor: pointer;
+  transition: 0.5s ease all;
+  flex-grow: 1;
+}
+
+.fa:hover,
+.fa-brands:hover,
+.fa-solid:hover {
+  color: whitesmoke;
+  transform: rotateZ(20deg);
+}
+
+.janken__section {
+  font-size: 14px;
+  color: whitesmoke;
+  text-align: center;
+}
+
+/* Buttons formatting */
+.janken__buttons {
+  background: #da9758;
+  color: whitesmoke;
+  border: none;
+  position: relative;
+  height: 3rem;
+  font-size: 2em;
+  padding: 0 2em;
+  cursor: pointer;
+  transition: 800ms ease all;
+  outline: none;
+  padding-inline: 2rem;
+}
+
+.janken__buttons:hover {
+  background: #fff;
+  color: #4f345a;
+}
+
+.janken__buttons:before,
+.janken__buttons:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background: #da9758;
+  transition: 400ms ease all;
+}
+
+.janken__buttons:after {
+  right: inherit;
+  top: inherit;
+  left: 0;
+  bottom: 0;
+}
+
+.janken__buttons:hover:before,
+.janken__buttons:hover:after {
+  width: 100%;
+  transition: 800ms ease all;
+}
+/* END OF HOME PAGE SECTION (FROM OLD PAGE) */
+
+/* FOR THE POPUP DIALOGS */
+dialog {
+  opacity: 0; /* Start with opacity set to 0 */
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  color: var(--black-color);
+  background-color: var(--primary-color);
+}
+
+#error {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#tip {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* font-size: .8rem;
+  position: fixed;
+  width: 6rem;
+  top: 4%;
+  left: 70%; */
+  /* transform: translate(-50%, -50%); */
+}
+/* END OF POPUP DIALOGS */
+
+
