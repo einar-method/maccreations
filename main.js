@@ -56,39 +56,7 @@ function render(data) {
 
   console.log(blog)
 
-  // const { todos } = data;
-
-  // console.log(todos);
-
-  // const containerHTML = `
-  //   <main class="blog__page">
-  //     ${makeBlogSections()}
-  //     ${blogPost(blog)}
-  //   </main>
-  // `;
-
-  //let containerHTML = checkNavBtn(blog);
   checkNavBtn(blog);
-
-  //app.innerHTML = containerHTML;
-
-  //app.innerHTML = makeBlogPage(blog);
-
-  // document.querySelectorAll('.blog__post').forEach(article => {
-  //   article.addEventListener('click', function() {
-  //     const postId = this.getAttribute('id');
-  //     handleArticleClick(blog, postId);
-  //   });
-  // });
-
-  // Attach event listeners
-  // document.querySelector('.toggle-all')?.addEventListener('click', () => toggleAllTodos(todos));
-  // document.querySelector('form')?.addEventListener('submit', submitForm);
-  // todos.forEach(todo => {
-  //   document.getElementById(`toggle-${todo.id}`)?.addEventListener('change', () => toggleDone(todo));
-  //   document.getElementById(`delete-${todo.id}`)?.addEventListener('click', () => deleteTodoItem(todo));
-  // });
-  // document.querySelector('.delete-completed')?.addEventListener('click', () => deleteCompleted(todos));
 }
 
 function renderError(errorMessage) {
@@ -103,7 +71,7 @@ function makeHomePage(blank) {
     <main class="home__page">
       <section class="welcome__text">
         <figure>
-          <img class="cover__image" src="Assests/em-anime.webp" alt="An AI generated paitning of the CJ, aka EM, in a fantasy setting." />
+          <img class="cover__image" src="Assests/em-anime.webp" alt="An AI generated paitning of CJ, aka E•M, in a fantasy setting." />
           </figure>
         <!-- <h1>Æinär's Library</h1> -->
         <p class="about-blurb">
@@ -113,8 +81,7 @@ function makeHomePage(blank) {
 
       <section>
         <br />
-        <!-- Add font awesome icons -->
-        <div class="outer">
+        <div class="icon__holder">
           <div class="icons">
             <a
               href="https://aka-em.itch.io/"
@@ -137,14 +104,6 @@ function makeHomePage(blank) {
               class="fa fa-rss"
             ></a>
           </div>
-          <!-- <div class="icons">
-            <a
-              href="https://www.youtube.com/channel/UCTVQYIFLY7d5E9m57tGRKXw"
-              target="_blank"
-              class="fa fa-youtube"
-              id="yt"
-            ></a>
-          </div> -->
           <div class="icons">
             <a
               href="https://open.spotify.com/track/1GGLQhjZSB6h0Qkfu2OvAf?si=4cafaec035cb4ed6"
@@ -172,12 +131,10 @@ function makeHomePage(blank) {
 
       <section class="janken__section">
         <p class="green__text">Let's play janken!</p>
-        <div class="mini-game">
-          <div class="game-btns">
-            <button class="janken__buttons" id="rock">rock</button>
-            <button class="janken__buttons" id="paper">paper</button>
-            <button class="janken__buttons" id="scissors">scissors</button>
-          </div>
+        <div class="janken__btn_holder">
+          <button class="janken__buttons" id="rock">rock</button>
+          <button class="janken__buttons" id="paper">paper</button>
+          <button class="janken__buttons" id="scissors">scissors</button>
         </div>
       </section>
     </main>
@@ -194,8 +151,53 @@ function makePortfolioPage(dataIn) {
 
 function makeMerchPage(dataIn) {
   return `
-    <main class="blog__page">
-      <p>This is the merch page.</p>
+    <main id="itchGrid">
+      <section class="innerGrid">
+        <ul class="itchGrid">
+          <li class="itchCard">
+              <h3>BattleCoreRules</h3>
+              <img src="Assests/bcr.png" alt="BCR">
+              <p>A generic ruleset for large scale battles</p>
+              <button><a href="https://traveling-bard-games.itch.io/battlecorerules/purchase">Download</a></button>
+              <a href="https://traveling-bard-games.itch.io/battlecorerules">View on itch.io</a>
+          </li>
+          <li class="itchCard">
+              <h3>Path of Destiny</h3>
+              <img src="Assests/Æinär_Path_of_Destiny_Full.png" alt="Game">
+              <p>A micro rpg with its own personality</p>
+              <a class="itchBtn" href="https://traveling-bard-games.itch.io/path-of-destiny/purchase" target="_blank">Download</a>
+              <a href="https://traveling-bard-games.itch.io/path-of-destiny" target="_blank">View on itch.io</a>
+          </li>
+          <li class="itchCard">
+              <h3>Title</h3>
+              <img src="" alt="">
+              <p>Description</p>
+              <button>Download</button>
+              <a href="">View on itch.io</a>
+          </li>
+          <li class="itchCard">
+              <h3>Title</h3>
+              <img src="" alt="">
+              <p>Description</p>
+              <button>Download</button>
+              <a href="http://">View on itch.io</a>
+          </li>
+          <li class="itchCard">
+              <h3>Title</h3>
+              <img src="" alt="">
+              <p>Description</p>
+              <button>Download</button>
+              <a href="http://">View on itch.io</a>
+          </li>
+          <li class="itchCard">
+              <h3>Title</h3>
+              <img src="" alt="">
+              <p>Description</p>
+              <button>Download</button>
+              <a href="http://">View on itch.io</a>
+          </li>
+        </ul>
+      </section>
     </main>
   `;
 }
@@ -216,7 +218,7 @@ function setUpBlogInteraction(dataIn) {
       handleArticleClick(dataIn.blog, postId);
     });
   });
-}
+};
 
 function blogPost(dataIn) {
   //console.log(dataIn.blog)
@@ -232,63 +234,52 @@ function blogPost(dataIn) {
         `).join('')}
     </section>
   `;
-}
+};
 
-//class="blog__section_name
 function makeBlogSections() {
   return `
-    <div class="card">
-      <div id="tab" class="inner-box">
+    <div class="blog__section_tab_holder_outer">
+      <div id="blogSectionTab" class="blog__section_tab_holder_inner">
         <fieldset 
             id="tab-toggle" 
-            class="tab-options" 
+            class="blog__section_tab_options" 
         >
 
-        <p class="form-para">
+        <p>
             <input 
             type="radio" 
             name="tool-toggle" 
-            id="pc-tools" 
-            value="pc-tools"
+            id="storiesTab" 
+            value="storiesTab"
             class="tool-toggle"
             checked>
-            <label for="pc-tools">stories</label>
+            <label for="storiesTab">stories</label>
         </p>
 
-        <p class="form-para">
+        <p>
             <input 
             type="radio" 
             name="tool-toggle" 
-            id="rr-tools" 
-            value="rr-tools"
+            id="musingsTab" 
+            value="musingsTab"
             class="tool-toggle">
-            <label for="rr-tools">musings</label>
+            <label for="musingsTab">musings</label>
         </p>
-        <p class="form-para">
+        <p>
             <input 
             type="radio" 
             name="tool-toggle" 
-            id="dice-tools" 
-            value="dice-tools"
+            id="gamesTab" 
+            value="gamesTab"
             class="tool-toggle">
-            <label for="dice-tools">games</label>
+            <label for="gamesTab">games</label>
         </p>
         </fieldset>
       </div>
     </div>
   `
-}
+};
 
-function renderHeader() {
-  return `
-    <header id="header">
-        <button class="nav__header_btns" id="homeBtn">home</button>
-        <button class="nav__header_btns" id="portfolioBtn">portfolio</button>
-        <button class="nav__header_btns" id="merchBtn">merch</button>
-        <button class="nav__header_btns" id="blogBtn">blog</button>
-    </header>
-  `
-}
 function renderNavHeader() {
   return `
     <button class="nav__header_btns" id="homeBtn">home</button>
@@ -296,20 +287,9 @@ function renderNavHeader() {
     <button class="nav__header_btns" id="merchBtn">merch</button>
     <button class="nav__header_btns" id="blogBtn">blog</button>
   `
-}
+};
 
 function truncateToWords(str) {
-  // const words = str.split(' ');
-  // if (words.length > 20) {
-  //   return words.slice(0, 20).join(' ') + '...';
-  // }
-  // return str;
-
-  // Parse the JSON string into an array
-  //const jsonArray = JSON.parse(str);
-
-  // Get the second entry
-  //const secondEntry = jsonArray[1];
   const secondEntry = str[1];
 
   // Create a temporary DOM element to use the browser's HTML parser to strip tags
@@ -324,55 +304,23 @@ function truncateToWords(str) {
     return words.slice(0, 20).join(' ') + '...';
   }
   return extractedText;
-
-  //return "place holder"
-}
-
-// function createPostPopupp(blogPosts) {
-//   const post = blogPosts[0];
-//   const popup = document.createElement('div');
-//   popup.classList.add('popup');
-//   popup.innerHTML = `
-//     <div class="popup-content">
-//       <h2>${post.title}</h2>
-//       <p>${post.content}</p>
-//       <button class="close-popup">Close</button>
-//     </div>
-//   `;
-//   document.body.appendChild(popup);
-//   const closeButton = popup.querySelector('.close-popup');
-//   closeButton.addEventListener('click', () => {
-//     popup.remove();
-//   });
-// }
-
-// function handleArticleClick(blogData, postId) {
-//   console.log("Article clicked:", postId);
-//   // Add logic here for what should happen when an article is clicked
-// }
+};
 
 function handleArticleClick(blogData, postId) {
   console.log("Article clicked:", postId);
 
-  // Find the blog post that matches the postId
   const selectedPost = blogData.find(post => ("blogID" + post.id) === postId);
 
-  // Check if the post was found and handle it
   if (selectedPost) {
-    console.log("Selected post:", selectedPost);
-    // Add logic here for what should happen when an article is clicked, e.g., open details
+    //console.log("Selected post:", selectedPost);
     openDetails(selectedPost.content);
   } else {
     console.log("Post not found!");
   }
-}
-
-
+};
 
 function openDetails(detailsText) {
-  // Check if the overlay already exists
   if (!document.getElementById('myNav')) {
-    // Create a new div element for the overlay
     const overlayHTML = `
     <div id="myNav" class="blogPost__overlay">
         
@@ -388,10 +336,8 @@ function openDetails(detailsText) {
     </div>
   `;
 
-    // Insert the HTML into the body
     document.body.insertAdjacentHTML('beforeend', overlayHTML);
 
-    // Add event listener for the close button
     document.querySelector('.blog__closebtn_top').addEventListener('click', closeDetails);
     document.querySelector('.blog__closebtn_bottom').addEventListener('click', closeDetails);
     document.querySelector('.like-btn').addEventListener('click', userAddLike);
@@ -429,10 +375,6 @@ function overlayScrollIntoView() {
 }
 
 function userAddLike() {
-  // const likeCount = document.querySelector('.like-btn');
-  // let count = parseInt(likeCount.textContent);
-  // count++;
-  // likeCount.textContent = count;
   console.log("User added a like");
 }
 
@@ -493,7 +435,10 @@ class NavButtons {
     this.activeStyle = `
       color: var(--tirtary-color);
       background-color: var(--primary-color);
-      border: 0.1px solid var(--white-color);
+      border-left: 0.1px solid var(--white-color);
+      border-right: 0.1px solid var(--white-color);
+      border-top: 0.1px solid var(--white-color);
+      border-bottom: 0.1px solid var(--white-color);
       border-radius: 0px;
       padding: 5px 5px;
       display: inline-block;
@@ -527,16 +472,8 @@ class NavButtons {
 
   // Method to apply styles based on isActive
   applyStyles(button) {
-    //console.error(button);
-    //console.log(button.isActive);
-    //console.log(button.id);
-    //console.log(document.getElementById(button.id));
     const buttonElement = document.getElementById(button.id);
     buttonElement.style = button.isActive ? this.activeStyle : this.defaultStyle;
-    
-    //buttonElement.setAttribute('style', button.isActive ? this.activeStyle : this.defaultStyle);
-    //buttonElement.setAttribute("setHover", "0");
-    //console.log(document.getElementById(button.id));
 
     buttonElement.addEventListener('mouseover', () => {
       if (!button.isActive) {
@@ -546,8 +483,6 @@ class NavButtons {
     buttonElement.addEventListener('mouseout', () => {
       buttonElement.style = button.isActive ? this.activeStyle : this.defaultStyle;
     });
-
-    //document.styleSheets[0].insertRule(`#${button.id}:hover { background-color: red; }`, 1);
   }
 
   // Apply styles to all buttons
@@ -555,19 +490,12 @@ class NavButtons {
     document.styleSheets[0].insertRule("#homeBtn:hover { background-color: red; }", 1);
     this.buttons.forEach(button => this.applyStyles(button));
   }
-}
+};
 
 function navBtnClicked(buttonId, dataIn) {
-  //console.log(buttonId);
-  // Reset all buttons to default style
-  // window.navButtons.buttons.forEach(button => {
-  //   button.isActive = false;
-  //   window.navButtons.applyStyles(button);
-  // });
   window.navButtons.buttons.forEach(button => {
     if (button.id === buttonId) {
       button.isActive = true;
-      //window.navButtons.applyStyles(button);
       checkNavBtn(dataIn);
     } else {
       button.isActive = false;
@@ -646,7 +574,7 @@ function getResult(computer, player) {
         result = "You win!"
     }
     return result
-}
+};
 
 // DIALOG BOXES
 function fadeInElements(elementIds) {
