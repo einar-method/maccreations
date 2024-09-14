@@ -9,7 +9,7 @@ const db = init({ appId: APP_ID });
 
 // Subscribe to data
 // ---------
-db.subscribeQuery({ blog: {} }, (resp) => {
+db.subscribeQuery({ blog: {}, merch: {} }, (resp) => {
   if (resp.error) {
     renderError(resp.error.message); // Pro-tip: Check you have the right appId!
     return;
@@ -149,54 +149,27 @@ function makePortfolioPage(dataIn) {
   `;
 };
 
+function createMerchItems(dataIn) {
+  return `
+    <ul class="merchList">
+      ${dataIn.merch.map(merch => `
+        <li class="merchCard" id="merchItem${merch.id}">
+          <h3>${merch.title}</h3>
+          <img src="${merch.imageLink}" alt="${merch.imageAlt}">
+          <p>${merch.description}</p>
+          <a class="merchBtn" href="${merch.actionLink}" target="_blank">${merch.actionType}</a>
+          <a href="${merch.mainLink}" target="_blank">${merch.mainLinkText}</a>
+        </li>
+      `).join('')}
+    </ul>
+  `;
+};
+
 function makeMerchPage(dataIn) {
   return `
     <main id="itchGrid">
       <section class="innerGrid">
-        <ul class="itchGrid">
-          <li class="itchCard">
-              <h3>BattleCoreRules</h3>
-              <img src="Assests/bcr.png" alt="BCR">
-              <p>A generic ruleset for large scale battles</p>
-              <button><a href="https://traveling-bard-games.itch.io/battlecorerules/purchase">Download</a></button>
-              <a href="https://traveling-bard-games.itch.io/battlecorerules">View on itch.io</a>
-          </li>
-          <li class="itchCard">
-              <h3>Path of Destiny</h3>
-              <img src="Assests/Æinär_Path_of_Destiny_Full.png" alt="Game">
-              <p>A micro rpg with its own personality</p>
-              <a class="itchBtn" href="https://traveling-bard-games.itch.io/path-of-destiny/purchase" target="_blank">Download</a>
-              <a href="https://traveling-bard-games.itch.io/path-of-destiny" target="_blank">View on itch.io</a>
-          </li>
-          <li class="itchCard">
-              <h3>Title</h3>
-              <img src="" alt="">
-              <p>Description</p>
-              <button>Download</button>
-              <a href="">View on itch.io</a>
-          </li>
-          <li class="itchCard">
-              <h3>Title</h3>
-              <img src="" alt="">
-              <p>Description</p>
-              <button>Download</button>
-              <a href="http://">View on itch.io</a>
-          </li>
-          <li class="itchCard">
-              <h3>Title</h3>
-              <img src="" alt="">
-              <p>Description</p>
-              <button>Download</button>
-              <a href="http://">View on itch.io</a>
-          </li>
-          <li class="itchCard">
-              <h3>Title</h3>
-              <img src="" alt="">
-              <p>Description</p>
-              <button>Download</button>
-              <a href="http://">View on itch.io</a>
-          </li>
-        </ul>
+        ${createMerchItems(dataIn)}
       </section>
     </main>
   `;
@@ -518,7 +491,7 @@ function checkNavBtn(dataIn) {
       app.innerHTML = makePortfolioPage();
     } else if (activeButton.id === "merchBtn") {
       console.log("Merch button is active");
-      app.innerHTML = makeMerchPage();
+      app.innerHTML = makeMerchPage(dataIn);
     } else if (activeButton.id === "blogBtn") {
       console.log("Blog button is active");
       app.innerHTML = makeBlogPage(dataIn);

@@ -18,6 +18,7 @@
   font-family: var(--font-main);
   margin: 0;
   font-size: 14px;
+  color: var(--white-color);
 }
 
 body {
@@ -461,9 +462,12 @@ dialog {
   grid-column: content;
 }
 
+/* .innerGrid {
+  min-width: 100dvw;
+  max-width: 100dvw;
+} */
 
-
-.itchGrid li {
+.merchList li {
   box-shadow:0 2px 3px 0px rgba(0,0,0,0.25);
   transition:.2s all; 
   align-items: baseline;
@@ -474,22 +478,20 @@ dialog {
   max-width: 100dvw;
 } */
 
-.itchGrid:hover li{
+.merchList:hover li{
   filter:blur(3px);
   opacity:.5;
   transform: scale(.98);
   box-shadow:none;
 }
-.itchGrid:hover li:hover{
+.merchList:hover li:hover{
   transform:scale(1.2);
   filter:blur(0px);
   opacity:1;
   box-shadow:0 8px 20px 0px rgba(0,0,0,0.125);
 }
 
-
-
-.itchGrid {
+.merchList {
   padding: 0;
   margin: 0;
   --min: 15ch;
@@ -502,7 +504,7 @@ dialog {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
 }
 
-.itchCard {
+.merchCard {
   /* --img-ratio: 3/2; */
 
   display: flex;
@@ -511,24 +513,28 @@ dialog {
   gap: 1rem;
   box-shadow: 0 0 0.5rem hsl(0 0% 0% / 35%);
   border-radius: 0.5rem;
+  border-right: 4px solid var(--tirtary-color);
+  border-bottom: 2px solid var(--tirtary-color);
 }
 
-.itchCard > img {
+.merchCard > img {
   aspect-ratio: var(--img-ratio);
   object-fit: cover;
   width: 100%;
+  height: 100px;
+  padding: 5px;
 }
 
-.itchCard > img:first-child {
+.merchCard > img:first-child {
   border-radius: 0.5rem 0.5rem 0 0;
 }
 
-.itchCard > img:last-child {
+.merchCard > img:last-child {
   border-radius: 0 0 0.5rem 0.5rem;
   margin-top: auto;
 }
 
-.itchCard > :not(img) {
+.merchCard > :not(img) {
   margin-left: 1rem;
   margin-right: 1rem;
 
@@ -536,25 +542,31 @@ dialog {
   text-wrap: pretty;
 }
 
-.itchCard > :not(img):first-child {
+.merchCard > :not(img):first-child {
   margin-top: 1rem;
 }
 
 /* Enhanced `:not()` accepts a selector list,
 but as a fallback you can chain `:not()` instead */
-.itchCard > :last-of-type:not(img, h2, h3, h4) {
+.merchCard > :last-of-type:not(img, h2, h3, h4) {
   margin-bottom: 1rem;
 }
 
-.itchCard > :not(h2, h3, h4) {
+.merchCard > :not(h2, h3, h4) {
   font-size: 0.9rem;
 }
 
-.itchCard > a {
+.merchCard > h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--tirtary-color);
+}
+
+.merchCard > a {
   align-self: start;
 }
 
-.itchBtn {
+.merchBtn {
   background-color: #da9758;
   border: none;
   color: whitesmoke;
@@ -569,7 +581,7 @@ but as a fallback you can chain `:not()` instead */
   cursor: pointer;
 }
 
-.itchBtn:hover {
+.merchBtn:hover {
   background-color: whitesmoke;
   color: #da9758;
 }
