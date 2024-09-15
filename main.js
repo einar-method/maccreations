@@ -1,4 +1,5 @@
 import { init, tx, id } from '@instantdb/core';
+import * as dice from './diceApp.js';
 
 // ID for app: plink
 const APP_ID = 'bcc500de-07a9-4fde-9025-c87906e63bf3';
@@ -136,6 +137,9 @@ function makeHomePage(blank) {
           <button class="janken__buttons" id="paper">paper</button>
           <button class="janken__buttons" id="scissors">scissors</button>
         </div>
+      </section>
+      <section class="dice__section">
+        ${dice.renderDice()}
       </section>
     </main>
   `;
@@ -513,6 +517,8 @@ function checkNavBtn(dataIn) {
       console.log("Home button is active");
       app.innerHTML = makeHomePage();
       setupJankenGame();
+      dice.rollDice();
+      dice.setDiceListeners();
     } else if (activeButton.id === "portfolioBtn") {
       console.log("Portfolio button is active");
       app.innerHTML = makePortfolioPage(dataIn);
