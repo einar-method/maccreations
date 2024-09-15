@@ -36,6 +36,13 @@ body {
   padding-top: 1em;
 }
 
+.cover__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* SITE NAVIGATION */
 .site__nav {
   display: flex;

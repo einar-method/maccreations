@@ -9,7 +9,7 @@ const db = init({ appId: APP_ID });
 
 // Subscribe to data
 // ---------
-db.subscribeQuery({ blog: {}, merch: {} }, (resp) => {
+db.subscribeQuery({ blog: {}, merch: {}, portfolio: {} }, (resp) => {
   if (resp.error) {
     renderError(resp.error.message); // Pro-tip: Check you have the right appId!
     return;
@@ -141,10 +141,26 @@ function makeHomePage(blank) {
   `;
 };
 
+function createPortfolioItems(dataIn) {
+  return `
+    <ul class="merchList">
+      ${dataIn.portfolio.map(portfolio => `
+        <li class="blog__post" id="portfolioItem${portfolio.id}">
+          <h3>${portfolio.title}</h3>
+          <p>${portfolio.description}</p>
+          <p>Click to see more</p>
+        </li>
+      `).join('')}
+    </ul>
+  `;
+};
+
 function makePortfolioPage(dataIn) {
   return `
-    <main class="blog__page">
-      <p>This is the portfolio page.</p>
+    <main id="folioGrid">
+      <section class="innerGrid">
+        ${createPortfolioItems(dataIn)}
+      </section>
     </main>
   `;
 };
@@ -177,7 +193,7 @@ function makeMerchPage(dataIn) {
 
 function makeBlogPage(blogIn) {
   return `
-    <main class="blog__page">
+    <main class="blog__page" id="blogPage">
       ${makeBlogSections()}
       ${blogPost(blogIn)}
     </main>
@@ -188,7 +204,7 @@ function setUpBlogInteraction(dataIn) {
   document.querySelectorAll('.blog__post').forEach(article => {
     article.addEventListener('click', function() {
       const postId = this.getAttribute('id');
-      handleArticleClick(dataIn.blog, postId);
+      handleArticleClick(dataIn, postId);
     });
   });
 };
@@ -283,12 +299,16 @@ function handleArticleClick(blogData, postId) {
   console.log("Article clicked:", postId);
 
   const selectedPost = blogData.find(post => ("blogID" + post.id) === postId);
+  const selectedPortfolio = blogData.find(post => ("portfolioItem" + post.id) === postId);
 
   if (selectedPost) {
     //console.log("Selected post:", selectedPost);
     openDetails(selectedPost.content);
+  } else if (selectedPortfolio) {
+    //console.log("Selected portfolio:", selectedPortfolio);
+    openDetails(selectedPortfolio.content);
   } else {
-    console.log("Post not found!");
+    console.log("Article not found!");
   }
 };
 
@@ -316,6 +336,13 @@ function openDetails(detailsText) {
     document.querySelector('.like-btn').addEventListener('click', userAddLike);
     document.querySelector('.scroll-top-btn').addEventListener('click', overlayScrollIntoView);
   }
+
+  // if (document.getElementById("blogPage")) {
+  //   document.querySelector('.blog__closebtn_top').addEventListener('click', closeDetails);
+  //   document.querySelector('.blog__closebtn_bottom').addEventListener('click', closeDetails);
+  //   document.querySelector('.like-btn').addEventListener('click', userAddLike);
+  //   document.querySelector('.scroll-top-btn').addEventListener('click', overlayScrollIntoView);
+  // }
 
   // Display the overlay
   document.getElementById('myNav').style.width = "100%";
@@ -488,14 +515,15 @@ function checkNavBtn(dataIn) {
       setupJankenGame();
     } else if (activeButton.id === "portfolioBtn") {
       console.log("Portfolio button is active");
-      app.innerHTML = makePortfolioPage();
+      app.innerHTML = makePortfolioPage(dataIn);
+      setUpBlogInteraction(dataIn.portfolio);
     } else if (activeButton.id === "merchBtn") {
       console.log("Merch button is active");
       app.innerHTML = makeMerchPage(dataIn);
     } else if (activeButton.id === "blogBtn") {
       console.log("Blog button is active");
       app.innerHTML = makeBlogPage(dataIn);
-      setUpBlogInteraction(dataIn);
+      setUpBlogInteraction(dataIn.blog);
     } else {
       console.log("No active button found");
     }
