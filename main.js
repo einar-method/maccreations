@@ -1,5 +1,8 @@
 import { init, tx, id } from '@instantdb/core';
 import * as dice from './diceApp.js';
+//import { renderScripts } from './renderScripts.js';
+import * as janken from './renderScripts.js';
+import * as utils from './utils.js';
 
 // ID for app: plink
 const APP_ID = 'bcc500de-07a9-4fde-9025-c87906e63bf3';
@@ -130,17 +133,11 @@ function makeHomePage(blank) {
         <br />
       </section>
 
-      <section class="janken__section">
-        <p class="green__text">Let's play janken!</p>
-        <div class="janken__btn_holder">
-          <button class="janken__buttons" id="rock">rock</button>
-          <button class="janken__buttons" id="paper">paper</button>
-          <button class="janken__buttons" id="scissors">scissors</button>
-        </div>
-      </section>
       <section class="dice__section">
         ${dice.renderDice()}
       </section>
+
+      <p class"endPage__navigation">Go to portfolio to see my work</p>
     </main>
   `;
 };
@@ -161,6 +158,7 @@ function createPortfolioItems(dataIn) {
 
 function makePortfolioPage(dataIn) {
   return `
+    <dialog id="tip"><strong></strong> <span id="tip-txt"></span></dialog>
     <main id="folioGrid">
       <section class="innerGrid">
         ${createPortfolioItems(dataIn)}
@@ -187,6 +185,7 @@ function createMerchItems(dataIn) {
 
 function makeMerchPage(dataIn) {
   return `
+    <dialog id="tip"><strong></strong> <span id="tip-txt"></span></dialog>
     <main id="itchGrid">
       <section class="innerGrid">
         ${createMerchItems(dataIn)}
@@ -310,7 +309,14 @@ function handleArticleClick(blogData, postId) {
     openDetails(selectedPost.content);
   } else if (selectedPortfolio) {
     //console.log("Selected portfolio:", selectedPortfolio);
-    openDetails(selectedPortfolio.content);
+    if (postId === "portfolioItembd5e5158-d43b-45b8-8889-7927ffbbad99") {
+      console.error(postId)
+      openDetails(janken.renderJankenGame());
+      janken.setupJankenGame();
+    } else {
+      openDetails(selectedPortfolio.content);
+    }
+    // openDetails(selectedPortfolio.content);
   } else {
     console.log("Article not found!");
   }
@@ -516,7 +522,7 @@ function checkNavBtn(dataIn) {
     if (activeButton.id === "homeBtn") {
       console.log("Home button is active");
       app.innerHTML = makeHomePage();
-      setupJankenGame();
+      //setupJankenGame();
       dice.rollDice();
       dice.setDiceListeners();
     } else if (activeButton.id === "portfolioBtn") {
@@ -552,36 +558,36 @@ function setupJankenGame() {
   }))
 };
 
-function generateComputerChoice() {
-    const randomNumber = Math.floor(Math.random() * 3);
-    return randomNumber === 0 ? 'rock' : randomNumber === 1 ? 'scissors' : 'paper';
-};
+// function generateComputerChoice() {
+//     const randomNumber = Math.floor(Math.random() * 3);
+//     return randomNumber === 0 ? 'rock' : randomNumber === 1 ? 'scissors' : 'paper';
+// };
 
-function getResult(computer, player) {
-    let result
-    if (computer === player) {
-        result = "It's a draw..."
-    }
-    if (computer === 'rock' && player === 'paper') {
-        result = "You win!"
-    }
-    if (computer === 'rock' && player === 'scissors') {
-        result = "Sorry, you lost :("
-    }
-    if (computer === 'paper' && player === 'scissors') {
-        result = "You win!"
-    }
-    if (computer === 'paper' && player === 'rock') {
-        result = "Sorry, you lost :("
-    }
-    if (computer === 'scissors' && player === 'paper') {
-        result = "Sorry, you lost :("
-    }
-    if (computer === 'scissors' && player === 'rock') {
-        result = "You win!"
-    }
-    return result
-};
+// function getResult(computer, player) {
+//     let result
+//     if (computer === player) {
+//         result = "It's a draw..."
+//     }
+//     if (computer === 'rock' && player === 'paper') {
+//         result = "You win!"
+//     }
+//     if (computer === 'rock' && player === 'scissors') {
+//         result = "Sorry, you lost :("
+//     }
+//     if (computer === 'paper' && player === 'scissors') {
+//         result = "You win!"
+//     }
+//     if (computer === 'paper' && player === 'rock') {
+//         result = "Sorry, you lost :("
+//     }
+//     if (computer === 'scissors' && player === 'paper') {
+//         result = "Sorry, you lost :("
+//     }
+//     if (computer === 'scissors' && player === 'rock') {
+//         result = "You win!"
+//     }
+//     return result
+// };
 
 // DIALOG BOXES
 function fadeInElements(elementIds) {
