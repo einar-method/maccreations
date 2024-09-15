@@ -1,7 +1,7 @@
 import { init, tx, id } from '@instantdb/core';
 import * as dice from './diceApp.js';
 //import { renderScripts } from './renderScripts.js';
-import * as janken from './renderScripts.js';
+import * as janken from './jankenApp.js';
 import * as utils from './utils.js';
 
 // ID for app: plink
@@ -133,10 +133,6 @@ function makeHomePage(blank) {
         <br />
       </section>
 
-      <section class="dice__section">
-        ${dice.renderDice()}
-      </section>
-
       <p class"endPage__navigation">Go to portfolio to see my work</p>
     </main>
   `;
@@ -144,7 +140,7 @@ function makeHomePage(blank) {
 
 function createPortfolioItems(dataIn) {
   return `
-    <ul class="merchList">
+    <ul class="portfolio__list">
       ${dataIn.portfolio.map(portfolio => `
         <li class="blog__post" id="portfolioItem${portfolio.id}">
           <h3>${portfolio.title}</h3>
@@ -310,10 +306,15 @@ function handleArticleClick(blogData, postId) {
   } else if (selectedPortfolio) {
     //console.log("Selected portfolio:", selectedPortfolio);
     if (postId === "portfolioItembd5e5158-d43b-45b8-8889-7927ffbbad99") {
-      console.error(postId)
       openDetails(janken.renderJankenGame());
       janken.setupJankenGame();
-    } else {
+    } else if (postId === "portfolioItem2f0a1276-b0dd-47d2-a675-23846c214d29") {
+        openDetails(dice.renderDice());
+        dice.setDiceListeners();
+    } else if (postId === "portfolioItem-none") {
+      //Place holder for game here
+    }
+    else {
       openDetails(selectedPortfolio.content);
     }
     // openDetails(selectedPortfolio.content);
@@ -323,13 +324,21 @@ function handleArticleClick(blogData, postId) {
 };
 
 function openDetails(detailsText) {
+
+  console.table(detailsText);  // Just to inspect if needed
+  
+  const insertedContent = Array.isArray(detailsText) 
+    ? detailsText.map(html => html).join('') 
+    : detailsText;
+  // Determine if detailsText is an array or string
+
   if (!document.getElementById('myNav')) {
     const overlayHTML = `
     <div id="myNav" class="blogPost__overlay">
         
         <div class="blogPost__overlay_content" id="postContent">
           <a href="javascript:void(0)" class="blog__closebtn_top">&times;</a>
-          ${detailsText.map(html => html).join('')}
+          ${insertedContent}
         </div>
         <div class="blogPost__overlay_footer">
             <button class="like-btn">Like</button>
@@ -523,8 +532,8 @@ function checkNavBtn(dataIn) {
       console.log("Home button is active");
       app.innerHTML = makeHomePage();
       //setupJankenGame();
-      dice.rollDice();
-      dice.setDiceListeners();
+      // dice.rollDice();
+      // dice.setDiceListeners();
     } else if (activeButton.id === "portfolioBtn") {
       console.log("Portfolio button is active");
       app.innerHTML = makePortfolioPage(dataIn);

@@ -1,6 +1,6 @@
-window.onload = function () {
-    console.log("The utils script has loaded.");
-}
+export function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}; // Easy random int between two numbers. 
 
 export function fadeInElements(elementIds) {
     requestAnimationFrame(function () {
@@ -30,4 +30,12 @@ export function callTip(txt) {
         document.getElementById("tip").open = false;
         dialogFade(document.getElementById("tip"), 0)
     }, 3500);
+};
+
+export function convertHtmlToArray(htmlString) {
+    // Split the HTML string by new lines and trim each line
+    return htmlString
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line.length > 0);  // Remove empty lines
 };

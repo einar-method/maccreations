@@ -136,7 +136,7 @@ body {
 /* end of section tabs */
 
 /* Working blog page items */
-.blog__section {
+.blog__section, .portfolio__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;

@@ -1,31 +1,28 @@
-window.onload = function () {
-    console.log("The dice module has loaded.");
-}
+import * as utils from './utils.js';
+// function getRndInteger(min, max) {
+//     return Math.floor(Math.random() * (max - min + 1) ) + min;
+// }; // Easy random int between two numbers. 
 
-function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
-}; // Easy random int between two numbers. 
-
-function fadeInElements(elementIds) {
-    requestAnimationFrame(function () {
-        elementIds.forEach(function (elementId) {
-        // Check the computed style to ensure the initial styles are applied
-        window.getComputedStyle(document.getElementById(elementId)).opacity;
+// function fadeInElements(elementIds) {
+//     requestAnimationFrame(function () {
+//         elementIds.forEach(function (elementId) {
+//         // Check the computed style to ensure the initial styles are applied
+//         window.getComputedStyle(document.getElementById(elementId)).opacity;
   
-        // Set opacity to 1 after the initial styles are applied
-        document.getElementById(elementId).style.opacity = 1;
-      });
-    });
-};
+//         // Set opacity to 1 after the initial styles are applied
+//         document.getElementById(elementId).style.opacity = 1;
+//       });
+//     });
+// };
 
-/// WAY TOO MUCH CODE FOR A TRANSITION ///
-function dialogFade(element, opacity) {
-    element.style.opacity = opacity;
-    element.style.transition = "none"; // Disable transition temporarily
-    requestAnimationFrame(() => {
-      element.style.transition = ""; // Re-enable transition
-    });
-};
+// /// WAY TOO MUCH CODE FOR A TRANSITION ///
+// function dialogFade(element, opacity) {
+//     element.style.opacity = opacity;
+//     element.style.transition = "none"; // Disable transition temporarily
+//     requestAnimationFrame(() => {
+//       element.style.transition = ""; // Re-enable transition
+//     });
+// };
 
 export function rollDice() {
     //const dice = document.getElementById("dice");
@@ -34,42 +31,53 @@ export function rollDice() {
     console.log("Dice rolled: " + diceRoll);
 }
 
+{/* <section class="dice__section">
+        ${dice.renderDice()}
+      </section> */}
+
 export function renderDice() {
     return `
     <p class="green__text">Need to roll some dice?</p>
-    <div id="dice-tab" >
-                <section class="button-wrapper">
-                  <div id="dice-btns">  
-                    <div class="dice-box">
-                      <p>
-                          <input 
-                          type="text" 
-                          name="formula-input" 
-                          id="formula-input"
-                          class="dice-input" 
-                          pattern="\d+d\d+(kl|kh|fr)?"
-                          title="Enter a valid dice formula, such as 2d20kh"
-                          placeholder="#d#"
-                          autocomplete="off">
-                      </p>
-                      <button id="formula-btn">Roll</button> 
-                    </div>
-                    <button class="glide-main" id="dice-reset">Clear</button>
-                  </div>
-                </section>
-              
-                <section class="dice-results">
-                  <dialog id="🎲🎲">Final Roll: <span id="final-roll"></span></dialog>
-                  <dialog id="🎲">All Rolls: <span id="all-roll"></span></dialog>
-                </section>
+    <div id="dice-tab">
+        <section class="button-wrapper">
+            <div id="dice-btns">  
+        
+            <button class="glide-main" id="d6-btn">D6</button>
+            <button class="glide-main" id="boon-btn">Boon</button>
+            <button class="glide-main" id="bane-btn">Bane</button>
+            <div class="dice-box">
+                <p>
+                    <input 
+                    type="text" 
+                    name="formula-input" 
+                    id="formula-input"
+                    class="dice-input" 
+                    pattern="\d+d\d+(kl|kh|fr)?"
+                    title="Enter a valid dice formula, such as 2d20kh"
+                    placeholder="#d#"
+                    autocomplete="off">
+                </p>
+                <button id="formula-btn">Formula</button> 
             </div>
+            <button class="glide-main" id="dice-reset">Clear</button>
+            </div>
+        </section>
+        
+        <section class="dice-results">
+            <dialog id="🎲🎲">Final Roll: <span id="final-roll"></span></dialog>
+            <dialog id="🎲">All Rolls: <span id="all-roll"></span></dialog>
+        </section>
+    </div>
     `;
+
+    // console.log(utils.convertHtmlToArray(htmlString));
+    // return utils.convertHtmlToArray(htmlString);
 };
 
 export function clearDiceResults() {
     document.getElementById("formula-input").value = "";
-    dialogFade(document.getElementById("🎲🎲"), 0)
-    dialogFade(document.getElementById("🎲"), 0)
+    utils.dialogFade(document.getElementById("🎲🎲"), 0)
+    utils.dialogFade(document.getElementById("🎲"), 0)
 };
 
 export function showDiceRoll(num, face, type) {
@@ -77,7 +85,7 @@ export function showDiceRoll(num, face, type) {
     const rolls = [];
 
     for (let i = 0; i < die.amount; i++) {
-        rolls.push(getRndInteger(1, die.face));
+        rolls.push(utils.getRndInteger(1, die.face));
     }
 
     let finalRoll = 0;
@@ -104,23 +112,29 @@ export function showDiceRoll(num, face, type) {
 
     // Below is needed to get the first transition to work
     // There must be an easier way, have not figured it out yet
-    fadeInElements(["🎲", "🎲🎲"])
+    utils.fadeInElements(["🎲", "🎲🎲"])
 };
 
 export function setDiceListeners() {
-    // document.getElementById("d6-btn").onclick = () => {
-    //     showDiceRoll(1, 6, "fr");
-    // };
+    document.getElementById("d6-btn").onclick = () => {
+        showDiceRoll(1, 6, "fr");
+    };
     
-    // document.getElementById("boon-btn").onclick = () => {
-    //     showDiceRoll(2, 6, "kh");
-    // };
+    document.getElementById("boon-btn").onclick = () => {
+        showDiceRoll(2, 6, "kh");
+    };
     
-    // document.getElementById("bane-btn").onclick = () => {
-    //     showDiceRoll(2, 6, "kl");
-    // };
+    document.getElementById("bane-btn").onclick = () => {
+        showDiceRoll(2, 6, "kl");
+    };
+
+    const tab = document.getElementById("dice-btns");
+    const tabContent = document.querySelectorAll("dice-box");
+
+    console.table(tab);
+    console.table(tabContent);
     
-    document.getElementById('formula-input').addEventListener('keydown', function(event) {
+    document.getElementById("formula-input").addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
           event.preventDefault(); // Prevent default form submission
           document.getElementById('formula-btn').click(); // Programmatically click the button

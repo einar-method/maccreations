@@ -1,13 +1,26 @@
 import * as utils from './utils.js';
-export const global = (scripts) => {
-    scripts.forEach(script => {
-        document.body.appendChild(script);
-    });
-}
+// export const global = (scripts) => {
+//     scripts.forEach(script => {
+//         document.body.appendChild(script);
+//     });
+// }
 
-window.onload = function () {
-    console.log("The script importer has loaded.");
-}
+// window.onload = function () {
+//     //console.log("The script importer has loaded.");
+//     const htmlString = `
+//         <section class="janken__section">
+//             <p class="green__text">Let's play janken!</p>
+//             <div class="janken__btn_holder">
+//                 <button class="janken__buttons" id="rock">rock</button>
+//                 <button class="janken__buttons" id="paper">paper</button>
+//                 <button class="janken__buttons" id="scissors">scissors</button>
+//             </div>
+//         </section>
+//     `;
+
+//     console.log(utils.convertHtmlToArray(htmlString));
+
+// }
 
 export function renderJankenGame() {
     // const jankenGame = document.createElement('script');
@@ -27,17 +40,31 @@ export function renderJankenGame() {
     //         </div>
     //     </section>
     // `
-    return [
-        "<section class=\"janken__section\">",
-        "<h2>E•M's Janken</h2>",
-        "<p class=\"green__text\">Just pick \"rock\", \"paper\", or \"scissors\" below to get started. Let's play!</p>",
-        "<div class=\"janken__btn_holder\">",
-        "<button class=\"janken__buttons\" id=\"rock\">rock</button>",
-        "<button class=\"janken__buttons\" id=\"paper\">paper</button>",
-        "<button class=\"janken__buttons\" id=\"scissors\">scissors</button>",
-        "</div>",
-        "</section>"
-    ];
+    // return [
+    //     "<section class=\"janken__section\">",
+    //     "<h2>E•M's Janken</h2>",
+    //     "<p class=\"green__text\">Just pick \"rock\", \"paper\", or \"scissors\" below to get started. Let's play!</p>",
+    //     "<div class=\"janken__btn_holder\">",
+    //     "<button class=\"janken__buttons\" id=\"rock\">rock</button>",
+    //     "<button class=\"janken__buttons\" id=\"paper\">paper</button>",
+    //     "<button class=\"janken__buttons\" id=\"scissors\">scissors</button>",
+    //     "</div>",
+    //     "</section>"
+    // ];
+    const htmlString = `
+        <section class="janken__section">
+            <h2>E•M's Janken</h2>
+            <p class="green__text">Just pick "rock", "paper", or "scissors" below to get started. Let's play!</p>
+            <div class="janken__btn_holder">
+            <button class="janken__buttons" id="rock">rock</button>
+            <button class="janken__buttons" id="paper">paper</button>
+            <button class="janken__buttons" id="scissors">scissors</button>
+            </div>
+        </section>
+    `;
+
+    console.log(utils.convertHtmlToArray(htmlString));
+    return utils.convertHtmlToArray(htmlString);
 };
 
 export function setupJankenGame() {
