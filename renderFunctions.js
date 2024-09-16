@@ -15,7 +15,7 @@ export function makeHomePage(blank) {
         <main class="home__page">
             <section class="welcome__text">
                 <figure>
-                    <img class="cover__image" src="public/cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
+                    <img class="cover__image" src="/cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
                     </figure>
                 <!-- <h1>Æinär's Library</h1> -->
                 <p class="about-blurb">
