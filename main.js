@@ -4,6 +4,8 @@ import * as dice from './diceApp.js';
 import * as janken from './jankenApp.js';
 import * as utils from './utils.js';
 import * as domHandler from './domHandlers.js';
+import * as renderElms from './renderFunctions.js';
+import { NavButtons } from './navButtons.js';
 
 // ID for app: plink
 const APP_ID = 'bcc500de-07a9-4fde-9025-c87906e63bf3';
@@ -21,7 +23,7 @@ db.subscribeQuery({ blog: {}, merch: {}, portfolio: {} }, (resp) => {
   }
   if (resp.data) {
     render(resp.data);
-    console.log(resp.data)
+    console.log("A preview of all data:", resp.data)
   }
 });
 
@@ -35,519 +37,46 @@ db.subscribeQuery({ blog: {}, merch: {}, portfolio: {} }, (resp) => {
 // const { isLoading, error, data } = db.useQuery(query)
 
 
-// Render
-// ---------
-const app = document.getElementById('app');
+// Render the data and all main content
+const app = document.getElementById("app");
 //app.style.cssText = styles.container;
 
 function render(data) {
-  document.getElementById("navHeader").innerHTML = renderNavHeader();
+  //console.log(data) //if we ever need to see id data has been passed
+  
+  document.getElementById("navHeader").innerHTML = renderElms.makeNavHeader();
 
   window.navButtons = new NavButtons();
   window.navButtons.applyAllStyles();
 
-  document.querySelectorAll('.nav__header_btns').forEach(button => {
+  document.querySelectorAll(".nav__header_btns").forEach(button => {
     button.addEventListener('click', function() {
       const buttonId = this.getAttribute('id');
       navBtnClicked(buttonId, data);
     });
   });
 
-  app.innerHTML = '';
-
-  console.log(data)
-
-  const { blog } = data;
-
-  console.log(blog)
-
-  checkNavBtn(blog);
-}
+  app.innerHTML = "";
+  
+  const { blog } = data; //I'm not certain what this is for
+  //console.log(blog)
+  //checkNavBtn(blog);
+  checkNavBtn(data); //this leads to creation of our main content
+};
 
 function renderError(errorMessage) {
   app.innerHTML = `
     <div>${errorMessage}</div>
   `;
-}
-
-function makeHomePage(blank) {
-  return `
-    <dialog id="tip"><strong></strong> <span id="tip-txt"></span></dialog>
-    <main class="home__page">
-      <section class="welcome__text">
-        <figure>
-          <img class="cover__image" src="public/cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
-          </figure>
-        <!-- <h1>Æinär's Library</h1> -->
-        <p class="about-blurb">
-          Aspiring game developer; WIP web developer; RPG hobbyist. 
-        </p>
-      </section>
-
-      <section>
-        <br />
-        <div class="icon__holder">
-          <div class="icons">
-            <a
-              href="https://aka-em.itch.io/"
-              target="_blank"
-              class="fa-brands fa-itch-io"
-            ></a>
-          </div>
-    
-          <div class="icons">
-            <a
-              href="https://github.com/einar-method"
-              target="_blank"
-              class="fa fa-github"
-            ></a>
-          </div>
-          <div class="icons">
-            <a
-              href="https://travelingbardgames.substack.com/"
-              target="_blank"
-              class="fa fa-rss"
-            ></a>
-          </div>
-          <div class="icons">
-            <a
-              href="https://open.spotify.com/track/1GGLQhjZSB6h0Qkfu2OvAf?si=4cafaec035cb4ed6"
-              class="fa-brands fa-spotify"
-              target="_blank"
-            ></a>
-          </div>
-          <div class="icons">
-            <a
-              href="https://ordes.netlify.app/"
-              class="fa-solid fa-globe"
-              target="_blank"
-            ></a>
-          </div>
-          <div class="icons">
-            <a
-              href="https://buymeacoffee.com/em.bmc"
-              class="fa-solid fa-mug-hot"
-              target="_blank"
-            ></a>
-          </div>
-        </div>
-        <br />
-      </section>
-      <section class="endPage__navigation">
-        <div class="endPage__navigation_left" id="toBlogBtn">
-          <a class="fa-solid fa-arrow-turn-down fa-rotate-90"></a>
-          <p>check out short stories and more on the blog</p>
-        </div>
-        <div class="endPage__navigation_right" id="toPortfolioBtn">
-          <p>see some of my apps and projects in portfolio</p>
-          <a class="fa-solid fa-arrow-right-long"></a>
-        </div>
-      </section>
-    </main>
-  `;
 };
 
-function createPortfolioItems(dataIn) {
-  return `
-    <ul class="portfolio__list">
-      ${dataIn.portfolio.map(portfolio => `
-        <li class="blog__post" id="portfolioItem${portfolio.id}">
-          <h3>${portfolio.title}</h3>
-          <p>${portfolio.description}</p>
-          <p>Click to see more</p>
-        </li>
-      `).join('')}
-    </ul>
-  `;
-};
-
-function makePortfolioPage(dataIn) {
-  return `
-    <dialog id="tip"><strong></strong> <span id="tip-txt"></span></dialog>
-    <main id="folioGrid">
-      <section class="innerGrid">
-        ${createPortfolioItems(dataIn)}
-      </section>
-      <section class="endPage__navigation">
-        <div class="endPage__navigation_left" id="toHomeBtn">
-          <a class="fa-solid fa-arrow-left-long"></a>  
-          <p>find my links on the homepage</p>
-        </div>
-        <div class="endPage__navigation_right" id="toMerchBtn">
-          <p>check out free and pwyw stuff in the store!</p>
-          <a class="fa-solid fa-arrow-right-long"></a>
-        </div>
-      </section>
-    </main>
-  `;
-};
-
-function createMerchItems(dataIn) {
-  return `
-    <ul class="merchList">
-      ${dataIn.merch.map(merch => `
-        <li class="merchCard" id="merchItem${merch.id}">
-          <h3>${merch.title}</h3>
-          <img src="${merch.imageLink}" alt="${merch.imageAlt}">
-          <p>${merch.description}</p>
-          <a class="merchBtn" href="${merch.actionLink}" target="_blank">${merch.actionType}</a>
-          <a href="${merch.mainLink}" target="_blank">${merch.mainLinkText}</a>
-        </li>
-      `).join('')}
-    </ul>
-  `;
-};
-
-function makeMerchPage(dataIn) {
-  return `
-    <dialog id="tip"><strong></strong> <span id="tip-txt"></span></dialog>
-    <main id="itchGrid">
-      <section class="innerGrid">
-        ${createMerchItems(dataIn)}
-      </section>
-      <section class="endPage__navigation">
-        <div class="endPage__navigation_left" id="toPortfolioBtn">
-          <a class="fa-solid fa-arrow-left-long"></a>  
-          <p>see some of my apps and projects in portfolio</p>
-        </div>
-        <div class="endPage__navigation_right" id="toBlogBtn">
-          <p>check out short stories and more on the blog</p>
-          <a class="fa-solid fa-arrow-right-long"></a>
-        </div>
-      </section>
-    </main>
-  `;
-}
-
-function makeBlogPage(blogIn) {
-  return `
-    <main class="blog__page" id="blogPage">
-      ${makeBlogSections()}
-      ${blogPost(blogIn)}
-      <section class="endPage__navigation">
-        <div class="endPage__navigation_left" id="toMerchBtn">
-          <a class="fa-solid fa-arrow-left-long"></a>  
-          <p>check out free and pwyw stuff in the store!</p>
-        </div>
-        <div class="endPage__navigation_right" id="toHomeBtn">
-          <p>find my links on the homepage</p>
-          <a class="fa-solid fa-tent-arrow-turn-left fa-flip-horizontal"></a>
-        </div>
-      </section>
-    </main>
-  `;
-};
-
-function setUpBlogInteraction(dataIn) {
+function setUpCardInteration(dataIn) {
   document.querySelectorAll('.blog__post').forEach(article => {
     article.addEventListener('click', function() {
       const postId = this.getAttribute('id');
-      handleArticleClick(dataIn, postId);
+      domHandler.handleCardClick(dataIn, postId);
     });
   });
-};
-
-function blogPost(dataIn) {
-  //console.log(dataIn.blog)
-  return `
-    <section class="blog__section">
-        ${dataIn.blog.map(post => `
-          <article class="blog__post" id="blogID${post.id}">
-            <h2 class="blog__header">${post.title}</h2>
-            <h3 class="blog__subheader">${post.subtitle}</h3>
-            <p class="blog__paragraph">${truncateToWords(post.content)}</p>
-            <p class="blog__date">Date: ${post.postDate}</p>
-          </article>
-        `).join('')}
-    </section>
-  `;
-};
-
-function makeBlogSections() {
-  return `
-    <div class="blog__section_tab_holder_outer">
-      <div id="blogSectionTab" class="blog__section_tab_holder_inner">
-        <fieldset 
-            id="tab-toggle" 
-            class="blog__section_tab_options" 
-        >
-
-        <p>
-            <input 
-            type="radio" 
-            name="tool-toggle" 
-            id="storiesTab" 
-            value="storiesTab"
-            class="tool-toggle"
-            checked>
-            <label for="storiesTab">stories</label>
-        </p>
-
-        <p>
-            <input 
-            type="radio" 
-            name="tool-toggle" 
-            id="musingsTab" 
-            value="musingsTab"
-            class="tool-toggle">
-            <label for="musingsTab">musings</label>
-        </p>
-        <p>
-            <input 
-            type="radio" 
-            name="tool-toggle" 
-            id="gamesTab" 
-            value="gamesTab"
-            class="tool-toggle">
-            <label for="gamesTab">games</label>
-        </p>
-        </fieldset>
-      </div>
-    </div>
-  `
-};
-
-function renderNavHeader() {
-  return `
-    <button class="nav__header_btns" id="homeBtn">home</button>
-    <button class="nav__header_btns" id="portfolioBtn">portfolio</button>
-    <button class="nav__header_btns" id="merchBtn">merch</button>
-    <button class="nav__header_btns" id="blogBtn">blog</button>
-  `
-};
-
-function truncateToWords(str) {
-  const secondEntry = str[1];
-
-  // Create a temporary DOM element to use the browser's HTML parser to strip tags
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = secondEntry;
-
-  // Extract the text content from the temporary element
-  const extractedText = tempDiv.textContent || tempDiv.innerText || '';
-
-  const words = extractedText.split(' ');
-  if (words.length > 20) {
-    return words.slice(0, 20).join(' ') + '...';
-  }
-  return extractedText;
-};
-
-function handleArticleClick(blogData, postId) {
-  console.log("Article clicked:", postId);
-
-  const selectedPost = blogData.find(post => ("blogID" + post.id) === postId);
-  const selectedPortfolio = blogData.find(post => ("portfolioItem" + post.id) === postId);
-
-  if (selectedPost) {
-    //console.log("Selected post:", selectedPost);
-    openDetails(selectedPost.content);
-  } else if (selectedPortfolio) {
-    //console.log("Selected portfolio:", selectedPortfolio);
-    if (postId === "portfolioItembd5e5158-d43b-45b8-8889-7927ffbbad99") {
-      openDetails(janken.renderJankenGame());
-      janken.setupJankenGame();
-    } else if (postId === "portfolioItem2f0a1276-b0dd-47d2-a675-23846c214d29") {
-        openDetails(dice.renderDice());
-        dice.setDiceListeners();
-    } else if (postId === "portfolioItem-none") {
-      //Place holder for game here
-    }
-    else {
-      openDetails(selectedPortfolio.content);
-    }
-    // openDetails(selectedPortfolio.content);
-  } else {
-    console.log("Article not found!");
-  }
-};
-
-function openDetails(detailsText) {
-
-  console.table(detailsText);  // Just to inspect if needed
-  
-  const insertedContent = Array.isArray(detailsText) 
-    ? detailsText.map(html => html).join('') 
-    : detailsText;
-  // Determine if detailsText is an array or string
-
-  if (!document.getElementById('myNav')) {
-    const overlayHTML = `
-    <div id="myNav" class="blogPost__overlay">
-        
-        <div class="blogPost__overlay_content" id="postContent">
-          <a href="javascript:void(0)" class="blog__closebtn_top">&times;</a>
-          ${insertedContent}
-        </div>
-        <div class="blogPost__overlay_footer">
-            <button class="like-btn">Like</button>
-            <button class="scroll-top-btn">To Top</button>
-            <button class="blog__closebtn_bottom">&times;</button>
-        </div>
-    </div>
-  `;
-
-    document.body.insertAdjacentHTML('beforeend', overlayHTML);
-
-    document.querySelector('.blog__closebtn_top').addEventListener('click', closeDetails);
-    document.querySelector('.blog__closebtn_bottom').addEventListener('click', closeDetails);
-    document.querySelector('.like-btn').addEventListener('click', userAddLike);
-    document.querySelector('.scroll-top-btn').addEventListener('click', overlayScrollIntoView);
-  }
-
-  // if (document.getElementById("blogPage")) {
-  //   document.querySelector('.blog__closebtn_top').addEventListener('click', closeDetails);
-  //   document.querySelector('.blog__closebtn_bottom').addEventListener('click', closeDetails);
-  //   document.querySelector('.like-btn').addEventListener('click', userAddLike);
-  //   document.querySelector('.scroll-top-btn').addEventListener('click', overlayScrollIntoView);
-  // }
-
-  // Display the overlay
-  document.getElementById('myNav').style.width = "100%";
-}
-
-function closeDetails() {
-  // Close the overlay by removing it from the DOM
-  const overlay = document.getElementById('myNav');
-  if (overlay) {
-    overlay.remove();
-  }
-}
-
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-}
-
-function overlayScrollIntoView() {
-  const element = document.querySelector('.blogPost__overlay_content');
-  
-  if (element) {
-    element.scrollIntoView({
-      behavior: 'smooth', // Optional: Smooth scrolling
-      block: 'start'      // Scroll so the element aligns at the top of the viewport
-    });
-  }
-}
-
-function userAddLike() {
-  console.log("User added a like");
-}
-
-// This function removes the Instant logo which is auto inserted
-//    as soon as the database is initialized.
-function removeElementWithStyles() {
-  const elements = document.querySelectorAll('*');
-
-  elements.forEach(el => {
-    const styles = window.getComputedStyle(el);
-
-    // Check if the element matches all the required styles
-    //    which were observed in the Firefox inspector.
-    if (
-      styles.position === 'fixed' &&
-      styles.bottom === '24px' &&
-      styles.left === '24px' &&
-      styles.height === '32px' &&
-      styles.width === '32px' &&
-      styles.display === 'flex' &&
-      styles.alignItems === 'center'
-    ) {
-      el.remove();
-      console.log('Element removed:', el);
-    }
-  });
-};
-document.addEventListener('DOMContentLoaded', function() {
-  removeElementWithStyles();
-});
-
-class NavButtons {
-  constructor() {
-    this.buttons = [
-      { name: "home", id: "homeBtn", isActive: true },
-      { name: "portfolio", id: "portfolioBtn", isActive: false },
-      { name: "merch", id: "merchBtn", isActive: false },
-      { name: "blog", id: "blogBtn", isActive: false }
-    ];
-
-    this.defaultStyle = `
-      color: var(--white-color);
-      background-color: var(--primary-color);
-      border: 0.1px solid var(--white-color);
-      border-radius: 0px;
-      padding: 5px 5px;
-      display: inline-block;
-      font-size: 18px;
-      letter-spacing: 1px;
-      cursor: pointer;
-      box-shadow: inset 0 0 0 0 var(--white-color);
-      -webkit-transition: ease-out 0.4s;
-      -moz-transition: ease-out 0.4s;
-      transition: ease-out 0.4s;
-      flex-grow: 1;
-    `;
-
-    this.activeStyle = `
-      color: var(--tirtary-color);
-      background-color: var(--primary-color);
-      border-left: 0.1px solid var(--white-color);
-      border-right: 0.1px solid var(--white-color);
-      border-top: 0.1px solid var(--white-color);
-      border-bottom: 0.1px solid var(--white-color);
-      border-radius: 0px;
-      padding: 5px 5px;
-      display: inline-block;
-      font-size: 18px;
-      letter-spacing: 1px;
-      cursor: default;
-      box-shadow: inset 0 0 0 25px var(--secondary-color);
-      -webkit-transition: ease-out 0.4s;
-      -moz-transition: ease-out 0.4s;
-      transition: ease-out 0.4s;
-      flex-grow: 1;
-    `;
-
-    this.hoverStyle = `
-      color: var(--secondary-color);
-      background-color: var(--primary-color);
-      border: 0.1px solid var(--white-color);
-      border-radius: 0px;
-      padding: 5px 5px;
-      display: inline-block;
-      font-size: 18px;
-      letter-spacing: 1px;
-      cursor: pointer;
-      box-shadow: inset 0 0 0 25px var(--white-color);
-      -webkit-transition: ease-out 0.4s;
-      -moz-transition: ease-out 0.4s;
-      transition: ease-out 0.4s;
-      flex-grow: 1;
-    `
-  }
-
-  // Method to apply styles based on isActive
-  applyStyles(button) {
-    const buttonElement = document.getElementById(button.id);
-    buttonElement.style = button.isActive ? this.activeStyle : this.defaultStyle;
-
-    buttonElement.addEventListener('mouseover', () => {
-      if (!button.isActive) {
-        buttonElement.style = this.hoverStyle;
-      }
-    });
-    buttonElement.addEventListener('mouseout', () => {
-      buttonElement.style = button.isActive ? this.activeStyle : this.defaultStyle;
-    });
-  }
-
-  // Apply styles to all buttons
-  applyAllStyles() {
-    document.styleSheets[0].insertRule("#homeBtn:hover { background-color: red; }", 1);
-    this.buttons.forEach(button => this.applyStyles(button));
-  }
 };
 
 function navBtnClicked(buttonId, dataIn) {
@@ -568,78 +97,33 @@ function checkNavBtn(dataIn) {
   if (activeButton) {
     console.log(`The active button's id is: ${activeButton.id}`);
     if (activeButton.id === "homeBtn") {
-      console.log("Home button is active");
-      app.innerHTML = makeHomePage();
-      //setupJankenGame();
-      // dice.rollDice();
-      // dice.setDiceListeners();
-      domHandler.checkLowerNavBtns();
+        console.log("Home button is active");
+        app.innerHTML = renderElms.makeHomePage();
+        //setupJankenGame();
+        // dice.rollDice();
+        // dice.setDiceListeners();
+        domHandler.checkLowerNavBtns();
     } else if (activeButton.id === "portfolioBtn") {
-      console.log("Portfolio button is active");
-      app.innerHTML = makePortfolioPage(dataIn);
-      setUpBlogInteraction(dataIn.portfolio);
-      domHandler.checkLowerNavBtns();
+        console.log("Portfolio button is active");
+        app.innerHTML = renderElms.makePortfolioPage(dataIn);
+        setUpCardInteration(dataIn.portfolio);
+        domHandler.checkLowerNavBtns();
     } else if (activeButton.id === "merchBtn") {
-      console.log("Merch button is active");
-      app.innerHTML = makeMerchPage(dataIn);
-      domHandler.checkLowerNavBtns();
+        console.log("Merch button is active");
+        app.innerHTML = renderElms.makeMerchPage(dataIn);
+        domHandler.checkLowerNavBtns();
     } else if (activeButton.id === "blogBtn") {
-      console.log("Blog button is active");
-      app.innerHTML = makeBlogPage(dataIn);
-      setUpBlogInteraction(dataIn.blog);
-      domHandler.checkLowerNavBtns();
+        console.log("Blog button is active");
+        app.innerHTML = renderElms.makeBlogPage(dataIn);
+        setUpCardInteration(dataIn.blog);
+        domHandler.checkLowerNavBtns();
     } else {
-      console.log("No active button found");
+        console.log("No active button found");
     }
   } else {
-    console.log('No active button found.');
+      console.log('No active button found.');
   }
 };
-
-
-// JANKEN GAME
-function setupJankenGame() {
-  const possibleChoices = document.querySelectorAll('button.janken__buttons');
-
-  possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
-      const userChoice = e.target.id;
-      const computerChoice = generateComputerChoice();
-      const result = getResult(computerChoice, userChoice);
-      const msg = `You picked ${userChoice}, CJ picked ${computerChoice}.<br>${result}`
-      callTip(msg)
-  }))
-};
-
-// function generateComputerChoice() {
-//     const randomNumber = Math.floor(Math.random() * 3);
-//     return randomNumber === 0 ? 'rock' : randomNumber === 1 ? 'scissors' : 'paper';
-// };
-
-// function getResult(computer, player) {
-//     let result
-//     if (computer === player) {
-//         result = "It's a draw..."
-//     }
-//     if (computer === 'rock' && player === 'paper') {
-//         result = "You win!"
-//     }
-//     if (computer === 'rock' && player === 'scissors') {
-//         result = "Sorry, you lost :("
-//     }
-//     if (computer === 'paper' && player === 'scissors') {
-//         result = "You win!"
-//     }
-//     if (computer === 'paper' && player === 'rock') {
-//         result = "Sorry, you lost :("
-//     }
-//     if (computer === 'scissors' && player === 'paper') {
-//         result = "Sorry, you lost :("
-//     }
-//     if (computer === 'scissors' && player === 'rock') {
-//         result = "You win!"
-//     }
-//     return result
-// };
 
 // DIALOG BOXES
 function fadeInElements(elementIds) {
@@ -671,3 +155,32 @@ function callTip(txt) {
         dialogFade(document.getElementById("tip"), 0)
     }, 3500);
 };
+
+// This function removes the Instant logo which is auto inserted
+//    as soon as the database is initialized.
+function removeElementWithStyles() {
+  const elements = document.querySelectorAll('*');
+
+  elements.forEach(el => {
+    const styles = window.getComputedStyle(el);
+
+    // Check if the element matches all the required styles
+    //    which were observed in the Firefox inspector.
+    if (
+      styles.position === 'fixed' &&
+      styles.bottom === '24px' &&
+      styles.left === '24px' &&
+      styles.height === '32px' &&
+      styles.width === '32px' &&
+      styles.display === 'flex' &&
+      styles.alignItems === 'center'
+    ) {
+      el.remove();
+      console.log('Element removed:', el);
+    }
+  });
+};
+document.addEventListener('DOMContentLoaded', function() {
+  removeElementWithStyles();
+  //Perhaps we can just hide it so that we can show it on a credits page
+});

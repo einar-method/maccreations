@@ -39,3 +39,20 @@ export function convertHtmlToArray(htmlString) {
         .map(line => line.trim())
         .filter(line => line.length > 0);  // Remove empty lines
 };
+
+export function truncateToWords(str) {
+    const secondEntry = str[1];
+  
+    // Create a temporary DOM element to use the browser's HTML parser to strip tags
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = secondEntry;
+  
+    // Extract the text content from the temporary element
+    const extractedText = tempDiv.textContent || tempDiv.innerText || '';
+  
+    const words = extractedText.split(' ');
+    if (words.length > 20) {
+      return words.slice(0, 20).join(' ') + '...';
+    }
+    return extractedText;
+};
