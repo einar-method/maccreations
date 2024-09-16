@@ -75,7 +75,7 @@ list should be an Array.`),s.length===0)return new _(0);if(s.length===1)return s
         <main class="home__page">
             <section class="welcome__text">
                 <figure>
-                    <img class="cover__image" src="/cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
+                    <img class="cover__image" src="./cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
                     </figure>
                 <!-- <h1>Æinär's Library</h1> -->
                 <p class="about-blurb">
