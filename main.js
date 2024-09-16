@@ -3,6 +3,7 @@ import * as dice from './diceApp.js';
 //import { renderScripts } from './renderScripts.js';
 import * as janken from './jankenApp.js';
 import * as utils from './utils.js';
+import * as domHandler from './domHandlers.js';
 
 // ID for app: plink
 const APP_ID = 'bcc500de-07a9-4fde-9025-c87906e63bf3';
@@ -75,7 +76,7 @@ function makeHomePage(blank) {
     <main class="home__page">
       <section class="welcome__text">
         <figure>
-          <img class="cover__image" src="Assests/em-anime.webp" alt="An AI generated paitning of CJ, aka E•M, in a fantasy setting." />
+          <img class="cover__image" src="public/cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
           </figure>
         <!-- <h1>Æinär's Library</h1> -->
         <p class="about-blurb">
@@ -132,8 +133,16 @@ function makeHomePage(blank) {
         </div>
         <br />
       </section>
-
-      <p class"endPage__navigation">Go to portfolio to see my work</p>
+      <section class="endPage__navigation">
+        <div class="endPage__navigation_left" id="toBlogBtn">
+          <a class="fa-solid fa-arrow-turn-down fa-rotate-90"></a>
+          <p>check out short stories and more on the blog</p>
+        </div>
+        <div class="endPage__navigation_right" id="toPortfolioBtn">
+          <p>see some of my apps and projects in portfolio</p>
+          <a class="fa-solid fa-arrow-right-long"></a>
+        </div>
+      </section>
     </main>
   `;
 };
@@ -158,6 +167,16 @@ function makePortfolioPage(dataIn) {
     <main id="folioGrid">
       <section class="innerGrid">
         ${createPortfolioItems(dataIn)}
+      </section>
+      <section class="endPage__navigation">
+        <div class="endPage__navigation_left" id="toHomeBtn">
+          <a class="fa-solid fa-arrow-left-long"></a>  
+          <p>find my links on the homepage</p>
+        </div>
+        <div class="endPage__navigation_right" id="toMerchBtn">
+          <p>check out free and pwyw stuff in the store!</p>
+          <a class="fa-solid fa-arrow-right-long"></a>
+        </div>
       </section>
     </main>
   `;
@@ -186,6 +205,16 @@ function makeMerchPage(dataIn) {
       <section class="innerGrid">
         ${createMerchItems(dataIn)}
       </section>
+      <section class="endPage__navigation">
+        <div class="endPage__navigation_left" id="toPortfolioBtn">
+          <a class="fa-solid fa-arrow-left-long"></a>  
+          <p>see some of my apps and projects in portfolio</p>
+        </div>
+        <div class="endPage__navigation_right" id="toBlogBtn">
+          <p>check out short stories and more on the blog</p>
+          <a class="fa-solid fa-arrow-right-long"></a>
+        </div>
+      </section>
     </main>
   `;
 }
@@ -195,6 +224,16 @@ function makeBlogPage(blogIn) {
     <main class="blog__page" id="blogPage">
       ${makeBlogSections()}
       ${blogPost(blogIn)}
+      <section class="endPage__navigation">
+        <div class="endPage__navigation_left" id="toMerchBtn">
+          <a class="fa-solid fa-arrow-left-long"></a>  
+          <p>check out free and pwyw stuff in the store!</p>
+        </div>
+        <div class="endPage__navigation_right" id="toHomeBtn">
+          <p>find my links on the homepage</p>
+          <a class="fa-solid fa-tent-arrow-turn-left fa-flip-horizontal"></a>
+        </div>
+      </section>
     </main>
   `;
 };
@@ -534,17 +573,21 @@ function checkNavBtn(dataIn) {
       //setupJankenGame();
       // dice.rollDice();
       // dice.setDiceListeners();
+      domHandler.checkLowerNavBtns();
     } else if (activeButton.id === "portfolioBtn") {
       console.log("Portfolio button is active");
       app.innerHTML = makePortfolioPage(dataIn);
       setUpBlogInteraction(dataIn.portfolio);
+      domHandler.checkLowerNavBtns();
     } else if (activeButton.id === "merchBtn") {
       console.log("Merch button is active");
       app.innerHTML = makeMerchPage(dataIn);
+      domHandler.checkLowerNavBtns();
     } else if (activeButton.id === "blogBtn") {
       console.log("Blog button is active");
       app.innerHTML = makeBlogPage(dataIn);
       setUpBlogInteraction(dataIn.blog);
+      domHandler.checkLowerNavBtns();
     } else {
       console.log("No active button found");
     }

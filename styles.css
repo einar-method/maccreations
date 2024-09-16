@@ -33,14 +33,15 @@ body {
   min-width: 100%;
   margin: 0 auto;
   padding: 0;
-  padding-top: 1em;
+  /* padding-top: 1em; */
 }
 
 .cover__image {
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
   object-fit: cover;
   object-position: center;
+  max-width: 350px;
 }
 
 /* SITE NAVIGATION */
@@ -51,6 +52,87 @@ body {
   position: sticky;
   top: 0;
   z-index: 999;
+}
+
+.endPage__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 90vw;
+  transition: all 800ms ease-in-out;
+}
+
+.endPage__navigation_left {
+  display: flex;
+  /* justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: var(--secondary-color); */
+  cursor: pointer;
+  align-items: start;
+  width: 45%;
+}
+
+.endPage__navigation_right {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  /* width: 100%;
+  background-color: var(--secondary-color); */
+  cursor: pointer;
+  align-items: end;
+  width: 45%;
+}
+.endPage__navigation_right p,
+.endPage__navigation_left p {
+  padding: 0.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--tirtary-color);
+  flex-grow: 2;
+  text-decoration: underline 4px var(--secondary-color);
+  /* the 4px size above makes a unique animation with 2px hover */
+  transition: all 500ms ease-in-out;
+}
+
+.endPage__navigation_right p {
+  text-align: end;
+}
+
+.endPage__navigation_left p {
+  text-align: start;
+}
+
+.endPage__navigation_right a, 
+.endPage__navigation_left a {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em; */
+  text-decoration: none;
+  color: var(--white-color);
+  text-align: start;
+}
+
+.endPage__navigation_right a:hover,
+.endPage__navigation_left a:hover {
+  /* background-color: var(--primary-color); */
+  transform: none; /* this has a bad interation with the fa style later on */
+  /* flex-grow: 1; */
+}
+
+.endPage__navigation_right:hover p,
+.endPage__navigation_left:hover p {
+  /* background-color: var(--primary-color); */
+  /* padding-left: 1em;
+  padding-right: 1em; */
+  /* transform: scale(1.05); */
+  text-decoration: underline 2px var(--tirtary-color);
+  /* width: 90%; */
+}
+.endPage__navigation_right:hover a,
+.endPage__navigation_left:hover a {
+  color: var(--primary-color);
 }
 /* END OF SITE NAVIGATION */
 
@@ -307,6 +389,15 @@ body {
 /* END OF BLOG POST OVERLAY */
 
 /* HOME PAGE SECTION (FROM OLD PAGE) */
+/* .home__page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--black-color);
+  padding-top: 0;
+} */
 /* General text and icons */
 .welcome__text {
   font-size: 14px;
