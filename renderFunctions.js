@@ -161,7 +161,16 @@ export function makeMerchPage(dataIn) {
 export function makeBlogPage(blogIn) {
     return `
       <main class="blog__page" id="blogPage">
-        ${makeBlogSections()}
+        <section class="blog__about">
+          <p>
+            A place to read fantasy short stories and WIP novels. 
+            Sometimes you’ll also find reviews, ideas, or spotlights on 
+            worlds, games, material, or tools for any and all RPGs. 
+            Occasionally, there will be some real world musings.
+          </p>
+          <div id="custom-substack-embed"></div>
+        </section>
+        <!--${makeBlogSections()} -->
         ${blogPost(blogIn)}
         <section class="endPage__navigation">
           <div class="endPage__navigation_left" id="toMerchBtn">

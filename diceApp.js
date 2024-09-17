@@ -42,9 +42,12 @@ export function renderDice() {
         <section class="button-wrapper">
             <div id="dice-btns">  
         
-            <button class="glide-main" id="d6-btn">D6</button>
-            <button class="glide-main" id="boon-btn">Boon</button>
-            <button class="glide-main" id="bane-btn">Bane</button>
+            <button class="dice__btns" id="d6-btn">D6</button>
+            <button class="dice__btns" id="boon-btn">Boon</button>
+            <button class="dice__btns" id="bane-btn">Bane</button>
+            <button class="dice__btns" id="d20-btn">D20</button>
+            <button class="dice__btns" id="adv-btn">Adv</button>
+            <button class="dice__btns" id="disAdv-btn">Disadvan</button>
             <div class="dice-box">
                 <p>
                     <input 
@@ -59,7 +62,7 @@ export function renderDice() {
                 </p>
                 <button id="formula-btn">Formula</button> 
             </div>
-            <button class="glide-main" id="dice-reset">Clear</button>
+            <button class="dice__btns" id="dice-reset">Clear</button>
             </div>
         </section>
         

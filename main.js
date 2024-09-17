@@ -77,6 +77,8 @@ function setUpCardInteration(dataIn) {
       domHandler.handleCardClick(dataIn, postId);
     });
   });
+  loadSubstackWidget();
+  //document.getElementById('subscribeButton').addEventListener('click', loadSubstackWidget);
 };
 
 function navBtnClicked(buttonId, dataIn) {
@@ -184,3 +186,25 @@ document.addEventListener('DOMContentLoaded', function() {
   removeElementWithStyles();
   //Perhaps we can just hide it so that we can show it on a credits page
 });
+
+window.CustomSubstackWidget = {
+  substackUrl: "travelingbardgames.substack.com",
+  placeholder: "example@mail.com",
+  buttonText: "Subscribe",
+  theme: "custom",
+  colors: {
+    primary: "#212121",
+    input: "#99ca3c",
+    email: "#000000",
+    text: "#FFFFFF",
+  },
+};
+
+function loadSubstackWidget() {
+  const script = document.createElement("script");
+  script.src = "https://substackapi.com/widget.js";
+  script.async = true;
+  document.body.appendChild(script);
+};
+
+// document.getElementById('subscribeButton').addEventListener('click', loadSubstackWidget);

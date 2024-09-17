@@ -555,6 +555,7 @@ dialog {
   grid-template-columns: 
     1fr [content-start] 6fr [content-end] 1fr;
   gap: 1rem;
+  padding-top: 2em;
 }
 
 #itchGrid > * {
@@ -580,14 +581,15 @@ dialog {
 .merchList:hover li{
   filter:blur(3px);
   opacity:.5;
-  transform: scale(.98);
+  transform: scale(.99);
   box-shadow:none;
 }
 .merchList:hover li:hover{
-  transform:scale(1.2);
+  transform:scale(1.1);
   filter:blur(0px);
   opacity:1;
   box-shadow:0 8px 20px 0px rgba(0,0,0,0.125);
+  border: 4px solid var(--tirtary-color);
 }
 
 .merchList {
@@ -686,6 +688,10 @@ but as a fallback you can chain `:not()` instead */
 }
 
 /* DICE APP */
+#dice-tab {
+  height: 70vmin;
+  /* height: 200%; */
+}
 .dice__section p {
   /* font-size: 1.5rem;
   font-weight: bold; */
@@ -739,7 +745,7 @@ but as a fallback you can chain `:not()` instead */
 
 .dice-box {
   grid-column: span 2;
-  background: black;
+  background: var(--secondary-color);
   margin: 0;
   padding: 0;
   height: 100%;
@@ -764,13 +770,13 @@ but as a fallback you can chain `:not()` instead */
   margin: 0;
   /*   height: 20px; */
   font-weight: normal;
-  color: whitesmoke;
+  color: var(--white-color);
 }
 
 #dice-btn, #formula-btn {
-  background-color: #000;
+  background-color: var(--secondary-color);
   border: 0px;
-  color: white;
+  color: var(--white-color);
   cursor: pointer;
   font-size: 2.8vmin;
 }
@@ -780,16 +786,16 @@ form p {
 }
 
 ::placeholder {
-  color: black;
+  color: var(--black-color);
   opacity: 0.5; /* For Firefox */
 }
 
 :-ms-input-placeholder {
   /* Some older browsers */
-  color: black;
+  color: var(--black-color);
 }
 
-input {
+.dice-input { /* Is this being used??? */
   /* margin-right: 8px; */
   border: 0;
   outline: 0;
@@ -799,7 +805,7 @@ input {
   border-radius: 5px;
   /*   padding: 5px; */
   /*   padding: 1.45vmin; */
-  background-color: #99ca3c;
+  background-color: var(--tirtary-color);
   box-shadow: inset 2px 2px 5px #000000, inset -1px -1px 1px #a2d740;
   width: 100%;
   height: 100%;
@@ -809,9 +815,9 @@ input {
   -webkit-appearance: none;
 }
 
-.glide-main {
+.dice__btns {
   color: rgb(255, 255, 255);
-  background-color: #000000;
+  background-color: var(--secondary-color);
   border: 0px solid rgba(1, 92, 24, 0.246);
   border-radius: 0px;
   padding: 0;
@@ -822,14 +828,72 @@ input {
   /*   font-size: minMax(2.8vmin, 1rem); */
   letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: inset 0 0 0 0 #99ca3c;
+  box-shadow: inset 0 0 0 0 var(--secondary-color);
   -webkit-transition: ease-out 0.4s;
   -moz-transition: ease-out 0.4s;
   transition: ease-out 0.4s;
   /*    flex-grow: 1; */
 }
 
-.glide-main:hover {
-  box-shadow: inset 0 0 0 25px #99ca3c;
+.dice__btns:hover {
+  box-shadow: inset 0 0 0 25px var(--white-color);
   color: rgb(0, 0, 0);
 }
+
+.blog__about {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  justify-content: space-between;
+  /* align-items: center; */
+  padding: 1em;
+  gap: 1em;
+  /* min-height: 10em; */
+}
+
+.blog__about > * {
+  flex: 1 1 15rem;
+}
+
+#custom-substack-embed {
+  align-self: center;
+  height: 6em;
+  align-items: center;
+  padding-bottom: 1em;
+  /* flex-grow: 2; */
+}
+
+.custom-substack-widget button:hover {
+  color: var(--primary-color);
+}
+
+/* .error {
+  margin-top: 0;
+} */
+
+/* .error {
+  color: var(--white-color);
+  font-weight: bold;
+  opacity: 1;
+  animation: fadeOut 5s ease forwards; 
+  padding-bottom: 1em;
+}
+
+.success {
+  color: var(--white-color);
+  font-weight: bold;
+  opacity: 1;
+  animation: fadeOut 5s ease forwards; 
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1; 
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} */
