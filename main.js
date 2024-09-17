@@ -7,7 +7,7 @@ import * as domHandler from './domHandlers.js';
 import * as renderElms from './renderFunctions.js';
 import { NavButtons } from './navButtons.js';
 
-// ID for app: plink
+// ID for app: maccreations
 const APP_ID = 'bcc500de-07a9-4fde-9025-c87906e63bf3';
 
 // Initialize the database

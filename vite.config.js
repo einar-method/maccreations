@@ -6,6 +6,6 @@
 //     plugins: [vue()]
 // })
 export default {
-    base: '/plink/',
+    base: '/maccreations/',
     // plugins: [vue()]
 }
