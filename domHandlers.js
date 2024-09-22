@@ -43,11 +43,11 @@ export function handleCardClick(blogData, postId) {
     //console.log("Selected portfolio:", selectedPortfolio);
     //TODO: make this more dynamic
     if (postId === "portfolioItembd5e5158-d43b-45b8-8889-7927ffbbad99") {
-      openDetails(janken.renderJankenGame());
+      openDetails(janken.renderJankenGame(), true);
       janken.setupJankenGame();
     } else if (postId === "portfolioItem2f0a1276-b0dd-47d2-a675-23846c214d29") {
-        openDetails(dice.renderDice());
-        dice.setDiceListeners();
+        openDetails(dice.renderDice(), true);
+        //dice.setDiceListeners();
     } else if (postId === "portfolioItem-none") {
       //Place holder for game here
     }
@@ -60,7 +60,7 @@ export function handleCardClick(blogData, postId) {
   }
 };
 
-function openDetails(detailsText) {
+function openDetails(detailsText, checker) {
 
   console.table(detailsText);  // Just to inspect if needed
   
@@ -69,12 +69,18 @@ function openDetails(detailsText) {
     : detailsText;
   // Determine if detailsText is an array or string
 
+  let topClose = ""; // we only want this for long text pages
+  if (checker !== true) {
+    topClose = '<a href="javascript:void(0)" class="blog__closebtn_top">&times;</a>';
+  }
+
+  //let topClose = checker == true ? "" : '<a href="javascript:void(0)" class="blog__closebtn_top">&times;</a>';
   if (!document.getElementById('myNav')) {
     const overlayHTML = `
     <div id="myNav" class="blogPost__overlay">
         
         <div class="blogPost__overlay_content" id="postContent">
-          <a href="javascript:void(0)" class="blog__closebtn_top">&times;</a>
+          ${topClose}
           ${insertedContent}
         </div>
         <div class="blogPost__overlay_footer">
@@ -87,7 +93,7 @@ function openDetails(detailsText) {
 
     document.body.insertAdjacentHTML('beforeend', overlayHTML);
 
-    document.querySelector('.blog__closebtn_top').addEventListener('click', closeDetails);
+    checker == true ? null : document.querySelector('.blog__closebtn_top').addEventListener('click', closeDetails);
     document.querySelector('.blog__closebtn_bottom').addEventListener('click', closeDetails);
     document.querySelector('.like-btn').addEventListener('click', userAddLike);
     document.querySelector('.scroll-top-btn').addEventListener('click', overlayScrollIntoView);

@@ -37,45 +37,50 @@ export function rollDice() {
 
 export function renderDice() {
     return `
-    <p class="green__text">Need to roll some dice?</p>
-    <div id="dice-tab">
-        <section class="button-wrapper">
-            <div id="dice-btns">  
-        
-            <button class="dice__btns" id="d6-btn">D6</button>
-            <button class="dice__btns" id="boon-btn">Boon</button>
-            <button class="dice__btns" id="bane-btn">Bane</button>
-            <button class="dice__btns" id="d20-btn">D20</button>
-            <button class="dice__btns" id="adv-btn">Adv</button>
-            <button class="dice__btns" id="disAdv-btn">Disadvan</button>
-            <div class="dice-box">
-                <p>
-                    <input 
-                    type="text" 
-                    name="formula-input" 
-                    id="formula-input"
-                    class="dice-input" 
-                    pattern="\d+d\d+(kl|kh|fr)?"
-                    title="Enter a valid dice formula, such as 2d20kh"
-                    placeholder="#d#"
-                    autocomplete="off">
-                </p>
-                <button id="formula-btn">Formula</button> 
-            </div>
-            <button class="dice__btns" id="dice-reset">Clear</button>
-            </div>
-        </section>
-        
-        <section class="dice-results">
-            <dialog id="🎲🎲">Final Roll: <span id="final-roll"></span></dialog>
-            <dialog id="🎲">All Rolls: <span id="all-roll"></span></dialog>
-        </section>
-    </div>
-    `;
-
-    // console.log(utils.convertHtmlToArray(htmlString));
-    // return utils.convertHtmlToArray(htmlString);
+        <iframe src="https://einar-method.github.io/dice-app/embed" width="100%" height="350" frameborder="0" allowfullscreen></iframe>
+    `
 };
+// export function renderDice() {
+//     return `
+//     <p class="green__text">Need to roll some dice?</p>
+//     <div id="dice-tab">
+//         <section class="button-wrapper">
+//             <div id="dice-btns">  
+        
+//             <button class="dice__btns" id="d6-btn">D6</button>
+//             <button class="dice__btns" id="boon-btn">Boon</button>
+//             <button class="dice__btns" id="bane-btn">Bane</button>
+//             <button class="dice__btns" id="d20-btn">D20</button>
+//             <button class="dice__btns" id="adv-btn">Adv</button>
+//             <button class="dice__btns" id="disAdv-btn">Disadvan</button>
+//             <div class="dice-box">
+//                 <p>
+//                     <input 
+//                     type="text" 
+//                     name="formula-input" 
+//                     id="formula-input"
+//                     class="dice-input" 
+//                     pattern="\d+d\d+(kl|kh|fr)?"
+//                     title="Enter a valid dice formula, such as 2d20kh"
+//                     placeholder="#d#"
+//                     autocomplete="off">
+//                 </p>
+//                 <button id="formula-btn">Formula</button> 
+//             </div>
+//             <button class="dice__btns" id="dice-reset">Clear</button>
+//             </div>
+//         </section>
+        
+//         <section class="dice-results">
+//             <dialog id="🎲🎲">Final Roll: <span id="final-roll"></span></dialog>
+//             <dialog id="🎲">All Rolls: <span id="all-roll"></span></dialog>
+//         </section>
+//     </div>
+//     `;
+
+//     // console.log(utils.convertHtmlToArray(htmlString));
+//     // return utils.convertHtmlToArray(htmlString);
+// };
 
 export function clearDiceResults() {
     document.getElementById("formula-input").value = "";

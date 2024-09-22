@@ -13,75 +13,72 @@ export function makeHomePage(blank) {
     return `
         <dialog id="tip"><strong></strong> <span id="tip-txt"></span></dialog>
         <main class="home__page">
-            <section class="welcome__text">
-                <figure>
-                    <img class="cover__image" src="./cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
-                    </figure>
-                <!-- <h1>Æinär's Library</h1> -->
-                <p class="about-blurb">
-                    Aspiring game developer; WIP web developer; RPG hobbyist. 
-                </p>
-            </section>
+          <section class="welcome__section">
+            <img class="cover__image" src="./cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
+            <div class="welcome__text">
+              <p>RPG hobbyist</p>
+              <p>Indie game creator</p>
+              <p>Freelance web developer</p>
+            </div>
+            
+          </section>
 
-            <section>
-                <br />
-                <div class="icon__holder">
-                    <div class="icons">
-                    <a
-                        href="https://aka-em.itch.io/"
-                        target="_blank"
-                        class="fa-brands fa-itch-io"
-                    ></a>
-                    </div>
+          <section class="links__section">
+            <div class="icons">
+              <a
+                  href="https://aka-em.itch.io/"
+                  target="_blank"
+                  class="fa-brands fa-itch-io"
+              ></a>
+            </div>
 
-                    <div class="icons">
-                    <a
-                        href="https://github.com/einar-method"
-                        target="_blank"
-                        class="fa fa-github"
-                    ></a>
-                    </div>
-                    <div class="icons">
-                    <a
-                        href="https://travelingbardgames.substack.com/"
-                        target="_blank"
-                        class="fa fa-rss"
-                    ></a>
-                    </div>
-                    <div class="icons">
-                    <a
-                        href="https://open.spotify.com/track/1GGLQhjZSB6h0Qkfu2OvAf?si=4cafaec035cb4ed6"
-                        class="fa-brands fa-spotify"
-                        target="_blank"
-                    ></a>
-                    </div>
-                    <div class="icons">
-                    <a
-                        href="https://ordes.netlify.app/"
-                        class="fa-solid fa-globe"
-                        target="_blank"
-                    ></a>
-                    </div>
-                    <div class="icons">
-                    <a
-                        href="https://buymeacoffee.com/em.bmc"
-                        class="fa-solid fa-mug-hot"
-                        target="_blank"
-                    ></a>
-                    </div>
-                </div>
-                <br />
-            </section>
-            <section class="endPage__navigation">
-                <div class="endPage__navigation_left" id="toBlogBtn">
-                    <a class="fa-solid fa-arrow-turn-down fa-rotate-90"></a>
-                    <p>check out short stories and more on the blog</p>
-                </div>
-                <div class="endPage__navigation_right" id="toPortfolioBtn">
-                    <p>see some of my apps and projects in portfolio</p>
-                    <a class="fa-solid fa-arrow-right-long"></a>
-                </div>
-            </section>
+            <div class="icons">
+              <a
+                  href="https://github.com/einar-method"
+                  target="_blank"
+                  class="fa fa-github"
+              ></a>
+            </div>
+            <div class="icons">
+              <a
+                  href="https://travelingbardgames.substack.com/"
+                  target="_blank"
+                  class="fa fa-rss"
+              ></a>
+            </div>
+            <div class="icons">
+              <a
+                  href="https://open.spotify.com/track/1GGLQhjZSB6h0Qkfu2OvAf?si=4cafaec035cb4ed6"
+                  class="fa-brands fa-spotify"
+                  target="_blank"
+              ></a>
+            </div>
+            <div class="icons">
+              <a
+                  href="https://ordes.netlify.app/"
+                  class="fa-solid fa-globe"
+                  target="_blank"
+              ></a>
+            </div>
+            <div class="icons">
+              <a
+                  href="https://buymeacoffee.com/em.bmc"
+                  class="fa-solid fa-mug-hot"
+                  target="_blank"
+              ></a>
+            </div>
+          </section>
+
+          <section class="endPage__navigation">
+              <div class="endPage__navigation_left" id="toBlogBtn">
+                  <a class="fa-solid fa-arrow-turn-down fa-rotate-90"></a>
+                  <p>check out short stories and more on the blog</p>
+              </div>
+              <div class="endPage__navigation_right" id="toPortfolioBtn">
+                  <p>see some of my apps and projects in portfolio</p>
+                  <a class="fa-solid fa-arrow-right-long"></a>
+              </div>
+          </section>
         </main>
     `;
 };
