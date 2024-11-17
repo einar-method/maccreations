@@ -138,7 +138,7 @@ list should be an Array.`),s.length===0)return new _(0);if(s.length===1)return s
         </section>
         </main>
     `}function Xi(n){return`
-        <ul class="merchList">
+        <ul class="merch__list">
         ${n.merch.map(t=>`
             <li class="merchCard" id="merchItem${t.id}">
             <h3>${t.title}</h3>
