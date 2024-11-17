@@ -120,7 +120,7 @@ export function makePortfolioPage(dataIn) {
   
 function createMerchItems(dataIn) {
     return `
-        <ul class="merchList">
+        <ul class="merch__list">
         ${dataIn.merch.map(merch => `
             <li class="merchCard" id="merchItem${merch.id}">
             <h3>${merch.title}</h3>
