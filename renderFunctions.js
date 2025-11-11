@@ -16,9 +16,9 @@ export function makeHomePage(blank) {
           <section class="welcome__section">
             <img class="cover__image" src="./cjatsakura.webp" alt="An AI altered picture of CJ, aka E•M, by a cherry tree." />
             <div class="welcome__text">
-              <p>RPG hobbyist</p>
-              <p>Indie game creator</p>
-              <p>Freelance web developer</p>
+              <p class="welcome__text__p">RPG hobbyist</p>
+              <p class="welcome__text__p">Indie game creator</p>
+              <p class="welcome__text__p">Freelance web developer</p>
             </div>
             
           </section>
