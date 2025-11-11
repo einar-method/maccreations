@@ -116,6 +116,13 @@ function checkNavBtn(dataIn) {
         domHandler.checkLowerNavBtns();
     } else if (activeButton.id === "blogBtn") {
         console.log("Blog button is active");
+
+        // Dynamically load the Supascribe script
+        const supaScript = document.createElement("script");
+        supaScript.src = "https://js.supascribe.com/v1/loader/Asg4sGkpDAYBxZGkvGj1lNbjXTu1.js";
+        supaScript.async = true;
+        document.body.appendChild(supaScript);
+
         app.innerHTML = renderElms.makeBlogPage(dataIn);
         setUpCardInteration(dataIn.blog);
         domHandler.checkLowerNavBtns();

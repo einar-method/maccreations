@@ -926,11 +926,10 @@ form p {
   height: 6em;
   align-items: center;
   padding-bottom: 1em;
-  /* flex-grow: 2; */
 }
 
 .custom-substack-widget button:hover {
-  color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 /* .error {
