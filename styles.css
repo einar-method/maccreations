@@ -12,6 +12,17 @@
   --tirtary-color: #99ca3c;
   --white-color: #f2f0e6;
   --black-color: #212121;
+
+  --rpg-primary-color: #DADADA;
+  --rpg-secondary-color: #464E3D;
+  --rpg-tirtary-color: #AEB0A1;
+
+  --bs-breakpoint-xs: 0;
+  --bs-breakpoint-sm: 576px;
+  --bs-breakpoint-md: 768px;
+  --bs-breakpoint-lg: 992px;
+  --bs-breakpoint-xl: 1200px;
+  --bs-breakpoint-xxl: 1400px;
 }
 
 * {
@@ -963,6 +974,126 @@ form p {
   }
 } */
 
+/* ********************************** */
+/* RPG Listings Page */
+/* ********************************** */
+.rpg__post_content {
+    background-color: var(--rpg-primary-color);
+}
+
+.rpg__post_content h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #EF403D;
+}
+
+.rpg__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* a:any-link {
+  color: #99ca3c;
+  font-size: .6rem;
+} */
+
+.rpg__tools-container {
+  max-width: 800px;
+  margin: 20px auto;
+  border: 2px solid #333;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rpg__post_content h2 {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  margin: 0;
+  font-size: 24px;
+  border-bottom: 2px solid #333;
+}
+
+.rpg__tools-grid {
+  display: grid;
+  grid-template-columns: repeat(minmax(300px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  text-align: center;
+}
+.rpg__tools-grid p {
+  grid-column: span 2;
+}
+.rpg__info-grid {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+  gap: 15px;
+  padding: 30px;
+}
+.rpg__info-grid p {
+  margin: 0px;
+}
+.rpg__standard-link {
+  color: black;
+}
+
+.rpg__tool-button {
+  background-color: var(--rpg-secondary-color);
+  border: 3px solid #333;
+  color: white;
+  padding: 20px 40px;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.rpg__tool-button:hover {
+  background-color: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 600px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 15px;
+  }
+  .tools-grid p {
+    grid-column: span 1;
+  }
+
+  iframe {
+    height: 300px;
+  }
+
+  /* .tool-button {
+    grid-column: span 2;
+  } */
+}
+
+/* .site__container svg {
+  padding: 5px;
+} */
+
+.rpg__post_content p {
+  color: #000000;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+
+/* ********************************** */
+/* MAIN MEDIA QUERIES */
+/* ********************************** */
 /* --- Medium screens (600px–1199px): side-by-side intro, but vertical sections --- */
 @media (min-width: 600px) {
   #app {
